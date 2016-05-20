@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+  <head>
+  	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <link href="CSS/signin.css" rel="stylesheet"/>
+    <link href="CSS/text.css" rel="stylesheet"/>
+    <title>Perfil</title>
+  </head>
+
+  <body>
+  	<div class="col-sm-4">
+  	<p:panelGrid columns="2">	    
+	    <f:facet name="Perfil">
+	        <p:graphicImage name="images/avatar.png"/>
+	    </f:facet>
+	    <h:outputText class="text" value="Usuário: " />
+	    <h:outputText class="text" value="Kobe Bryant" />
+	 
+	    <h:outputText class="text" value="Email: " />
+	    <h:outputText class="text" value="kobe@nerf.com" />
+	 
+	</p:panelGrid>
+  	</div>
+  	<div class="col-sm-8 madeira">
+  	<h2 class="heading">Mesas</h2>
+  	<p:fieldset styleClass="border">
+        <f:facet name="legend">
+        	<h3 style="color:white;">Lhama Adventure</h3>
+		</f:facet>
+        <h:panelGrid columns="2" cellpadding="5">
+            <p>
+            <img class="image" src="images/d20.png" />
+            <h:outputText style="padding:5px 15px" class="text"
+                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michaelhama has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+        	</p>
+        </h:panelGrid>
+    </p:fieldset>
+    <p:fieldset styleClass="border">
+         <f:facet name="legend">
+        	<h3 style="color:white;">Lhama Adventure Temp.2</h3>
+		</f:facet>
+        <h:panelGrid columns="2" cellpadding="5">
+            <p>
+            <img class="image" src="images/d20.png" />
+            <h:outputText style="padding:5px 15px" class="text"
+                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michaelhama has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+        	</p>
+        </h:panelGrid>
+    </p:fieldset>
+  	</div>
+
+  </body>
+</html>
