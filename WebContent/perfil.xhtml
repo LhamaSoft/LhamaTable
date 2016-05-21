@@ -5,7 +5,7 @@
     xmlns:f="http://java.sun.com/jsf/core"  
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui">
-  <head>
+  <h:head>
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 
@@ -18,27 +18,30 @@
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
     <title>Perfil</title>
-  </head>
+  </h:head>
 
-  <body>
+  <h:body>
   	<div class="col-sm-4">
-  	<p:panelGrid columns="2">	    
-	    <f:facet name="Perfil">
-	        <p:graphicImage name="images/avatar.png"/>
-	    </f:facet>
-	    <h:outputText class="text" value="Usuário: " />
-	    <h:outputText class="text" value="Kobe Bryant" />
-	 
-	    <h:outputText class="text" value="Email: " />
-	    <h:outputText class="text" value="kobe@nerf.com" />
-	 
-	</p:panelGrid>
+	  	<p:panelGrid columns="2" layout="grid">	    
+		    <p:row>
+		    	<p:column colspan="2">
+		    		<img class="image" src="images/avatar.png"/>
+		    	</p:column>		    
+		    </p:row>
+		    
+		    <h:outputText value="Usuário: " />
+		    <h:outputText value="Kobe Bryant" />
+		 
+		    <h:outputText value="Email: " />
+		    <h:outputText value="kobe@nerf.com" />		 
+		</p:panelGrid>
   	</div>
-  	<div class="col-sm-8 madeira">
+  	<div class="col-sm-8">
   	<h2 class="heading">Mesas</h2>
+  	<p:editor id="editor" width="600" />
   	<p:fieldset styleClass="border">
         <f:facet name="legend">
-        	<h3 style="color:white;">Lhama Adventure</h3>
+        	<h3 style="color:black;">Lhama Adventure</h3>
 		</f:facet>
         <h:panelGrid columns="2" cellpadding="5">
             <p>
@@ -51,22 +54,20 @@
         	</p>
         </h:panelGrid>
     </p:fieldset>
+    <br/>
     <p:fieldset styleClass="border">
          <f:facet name="legend">
-        	<h3 style="color:white;">Lhama Adventure Temp.2</h3>
+        	<h3 style="color:black;">Lhama Adventure Temp.2</h3>
 		</f:facet>
         <h:panelGrid columns="2" cellpadding="5">
             <p>
             <img class="image" src="images/d20.png" />
             <h:outputText style="padding:5px 15px" class="text"
-                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michaelhama has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
+                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding." />
         	</p>
         </h:panelGrid>
     </p:fieldset>
   	</div>
 
-  </body>
+  </h:body>
 </html>
