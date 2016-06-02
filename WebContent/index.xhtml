@@ -15,11 +15,23 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
+   	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="image/favicon.ico" type="image/x-icon">
     <title>LhamaTable</title>
 
     <link href="CSS/signin.css" rel="stylesheet"/>
 
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script   src="https://code.jquery.com/jquery-2.2.4.js"   
+    		  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    		  crossorigin="anonymous"></script>
+    
+    <script>
+		jQuery(function($){
+		       $("#campoData").mask("99/99/9999");
+		      
+		});
+	</script>
   </head>
 
   <body>
@@ -43,9 +55,10 @@
       <form class="form-signin">
         <h2 class="form-signin-heading">Crie uma conta:</h2>
         <input id="UserName" class="form-control" placeholder="Usuario"></input>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email"/>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required=""/>
         <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required=""/>
         <input type="password" id="ConfPassword" class="form-control" placeholder="Conf. Senha" required=""/>
+        <input type="text" id="campoData" class="form-control" placeholder="Data de Nasc." required=""/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
         <br/>
       </form>

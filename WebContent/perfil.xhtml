@@ -23,27 +23,22 @@
   </h:head>
 
   <h:body>
-  	<div class="col-sm-4 user">	  
-		    <img src="images/avatar.png"/>
-		    <br/>
-		    <h:outputText value="Kobe Bryant" style="color:white; border-style: none none solid solid;border-width: 5px;border-color: ffffff;"/>
-		    <br/>
-		    <h:outputText value="kobe@nerf.com" style="color:white; border-style: none none solid solid;border-width: 5px;border-color: ffffff;"/>		 
-  	</div>
-  	<div class="col-sm-8">
-  	<h2 class="heading">Mesas</h2>
-  	<p:accordionPanel value="#{tabbedView.mesa}" var="mesa">
-        <p:tab title="#{mesa.id} - #{mesa.nome}">
-            <h:panelGrid columns="3" cellpadding="5">
-                <f:facet name="header">
-                    <p:graphicImage name="demo/images/mesa/#{mesa.image}-big.gif" />
-                </f:facet>
-                <h:outputText value="#{mesa.description}" />
-                <!-- Acrescentar na clase mesa image e description -->
-            </h:panelGrid>
-        </p:tab>
-    </p:accordionPanel>
-  	</div>
+  	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+		<div class="row">
+        	<div role="complementary" class="col-md-2" style="background-color:#553756;">
+	            	   <img src="images/avatar2.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
+						<button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button>
+						<br/>
+						<p>Nome de Usuário: x</p>
+						<p>Usuário desde: y</p>
+        	</div>
+   		</div>
+   		<div class="col-md-8">
+		  	<h2 class="heading">Mesas</h2>
+		  	
+		    
+		 </div>
+	</div>
 
   </h:body>
 </html>
