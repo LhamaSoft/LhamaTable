@@ -31,6 +31,23 @@
 						<br/>
 						<p>Nome de Usuário: x</p>
 						<p>Usuário desde: y</p>
+						<h:form>            
+						    <button class="btn btn-primary btn-block" type="submit">Editar</button>
+						 
+						    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+						 
+						    <p:dialog header="editar" widgetVar="dlg" resizable="false">
+						        <h:panelGrid columns="2" cellpadding="5">
+						            <h:outputLabel for="username" value="Username:" />
+						            <input type="username" id="inputUserName" class="form-control" placeholder="User Name"></input>
+						 
+						            <h:outputLabel for="email" value="email:" />
+						            <input type="email" id="inputEmail" class="form-control" placeholder="Email address"></input>
+						 
+						            <button class="btn btn-primary btn-block" type="submit">Editar</button>  
+						        </h:panelGrid>
+						    </p:dialog>
+						</h:form>
         	</div>
    		</div>
    		<div class="col-md-8">
