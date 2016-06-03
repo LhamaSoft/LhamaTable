@@ -26,36 +26,19 @@
   	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">
         	<div role="complementary" class="col-md-2" style="background-color:#553756;">
-	            	   <img src="images/avatar2.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
-						<button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button>
+	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
+						<a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a>
 						<br/>
 						<p>Nome de Usuário: x</p>
-						<p>Usuário desde: y</p>
-						<h:form>            
-						    <button class="btn btn-primary btn-block" type="submit">Editar</button>
-						 
-						    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-						 
-						    <p:dialog header="editar" widgetVar="dlg" resizable="false">
-						        <h:panelGrid columns="2" cellpadding="5">
-						            <h:outputLabel for="username" value="Username:" />
-						            <input type="username" id="inputUserName" class="form-control" placeholder="User Name"></input>
-						 
-						            <h:outputLabel for="email" value="email:" />
-						            <input type="email" id="inputEmail" class="form-control" placeholder="Email address"></input>
-						 
-						            <button class="btn btn-primary btn-block" type="submit">Editar</button>  
-						        </h:panelGrid>
-						    </p:dialog>
-						</h:form>
+						<p>Usuário desde: y</p>						
         	</div>
+   			<div class="col-md-8">
+			  	<h2 class="heading">Mesas</h2>
+			  	
+			    
+			 </div>
    		</div>
-   		<div class="col-md-8">
-		  	<h2 class="heading">Mesas</h2>
-		  	
-		    
-		 </div>
 	</div>
-
+	<a href="deletar.xhtml"><button class="btn btn-primary" type="submit">Apagar Conta</button></a>
   </h:body>
 </html>
