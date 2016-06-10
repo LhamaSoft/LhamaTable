@@ -14,6 +14,8 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
     
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
@@ -27,18 +29,48 @@
 		<div class="row">
         	<div role="complementary" class="col-md-2" style="background-color:#553756;">
 	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
-						<a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a>
+						<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
+						<!-- trecho abaixo em testes ainda -->
+						<h:form>						             
+						    <p:commandButton value="Dynamic Focus" onclick="PF('teste').show();" type="button" icon="ui-icon-extlink" />
+						 
+						    <p:dialog header="Dynamic Focus" widgetVar="teste" focus="age">
+						        <h:panelGrid columns="2" cellpadding="5">
+						            <h:outputLabel for="name" value="Name:" />
+						            <p:inputText id="name" label="name" />
+						 
+						            <h:outputLabel for="surname" value="Surname:" />
+						            <p:inputText id="surname" label="surname" />
+						 
+						            <h:outputLabel for="age" value="Age:" />
+						            <p:inputText id="age" label="age" />
+						        </h:panelGrid>
+						    </p:dialog>
+						 
+						</h:form>
 						<br/>
-						<p>Nome de Usuário: x</p>
-						<p>Usuário desde: y</p>						
+						<p class="heading">Nome de Usuário: x</p>
+						<p class="heading">Usuário desde: y</p>						
         	</div>
    			<div class="col-md-8">
 			  	<h2 class="heading">Mesas</h2>
-			  	
+			  	<div class="col-md-4" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
+					<form class="form-signin">
+				        <input id="nomeMesa" class="form-control" placeholder="Nome da Mesa"></input>
+				        <input type="text" id="sistema" class="form-control" placeholder="Sistema de Jogo" required=""/>
+				        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required=""/>
+				        <input type="password" id="ConfPassword" class="form-control" placeholder="Nova" required=""/>
+				        <button class="btn btn-lg btn-primary btn-block" type="submit">Criar mesa</button>
+				        <br/>
+				    </form>
+			  	</div>
+			  	<div class="col-md-4" id="mesasJog"><!-- Mesas onde o usuario já jogou -->
+			  	</div>
 			    
 			 </div>
    		</div>
 	</div>
-	<a href="deletar.xhtml"><button class="btn btn-primary" type="submit">Apagar Conta</button></a>
+	<div></div>
+	<a href="deletar.xhtml" style="float:bottom"><button class="btn btn-primary" type="submit">Apagar Conta</button></a>
   </h:body>
 </html>
