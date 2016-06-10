@@ -14,52 +14,63 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
     
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
+  
+	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
     <title>Perfil</title>
   </h:head>
 
   <h:body>
-  	<div class="col-sm-4 user">	  
-		    <img src="images/avatar.png"/>
-		    <br/>
-		    <h:outputText value="Kobe Bryant" style="color:white; border-style: none none solid solid;border-width: 5px;border-color: ffffff;"/>
-		    <br/>
-		    <h:outputText value="kobe@nerf.com" style="color:white; border-style: none none solid solid;border-width: 5px;border-color: ffffff;"/>		 
-  	</div>
-  	<div class="col-sm-8">
-  	<h2 class="heading">Mesas</h2>
-  	<p:editor id="editor" width="600" />
-  	<p:fieldset styleClass="border">
-        <f:facet name="legend">
-        	<h3 style="color:black;">Lhama Adventure</h3>
-		</f:facet>
-        <h:panelGrid columns="2" cellpadding="5">
-            <p>
-            <img class="image" src="images/d20.png" />
-            <h:outputText style="padding:5px 15px" class="text"
-                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michaelhama has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
-        	</p>
-        </h:panelGrid>
-    </p:fieldset>
-    <br/>
-    <p:fieldset styleClass="border">
-         <f:facet name="legend">
-        	<h3 style="color:black;">Lhama Adventure Temp.2</h3>
-		</f:facet>
-        <h:panelGrid columns="2" cellpadding="5">
-            <p>
-            <img class="image" src="images/d20.png" />
-            <h:outputText style="padding:5px 15px" class="text"
-                value="The story begins as Don Vito Corlheome, the head of a New York Mafia family, oversees his daughter's wedding." />
-        	</p>
-        </h:panelGrid>
-    </p:fieldset>
-  	</div>
-
+  	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+		<div class="row">
+        	<div role="complementary" class="col-md-2" style="background-color:#553756;">
+	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
+						<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
+						<!-- trecho abaixo em testes ainda -->
+						<h:form>						             
+						    <p:commandButton value="Dynamic Focus" onclick="PF('teste').show();" type="button" icon="ui-icon-extlink" />
+						 
+						    <p:dialog header="Dynamic Focus" widgetVar="teste" focus="age">
+						        <h:panelGrid columns="2" cellpadding="5">
+						            <h:outputLabel for="name" value="Name:" />
+						            <p:inputText id="name" label="name" />
+						 
+						            <h:outputLabel for="surname" value="Surname:" />
+						            <p:inputText id="surname" label="surname" />
+						 
+						            <h:outputLabel for="age" value="Age:" />
+						            <p:inputText id="age" label="age" />
+						        </h:panelGrid>
+						    </p:dialog>
+						 
+						</h:form>
+						<br/>
+						<p class="heading">Nome de Usuário: x</p>
+						<p class="heading">Usuário desde: y</p>						
+        	</div>
+   			<div class="col-md-8">
+			  	<h2 class="heading">Mesas</h2>
+			  	<div class="col-md-4" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
+					<form class="form-signin">
+				        <input id="nomeMesa" class="form-control" placeholder="Nome da Mesa"></input>
+				        <input type="text" id="sistema" class="form-control" placeholder="Sistema de Jogo" required=""/>
+				        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required=""/>
+				        <input type="password" id="ConfPassword" class="form-control" placeholder="Nova" required=""/>
+				        <button class="btn btn-lg btn-primary btn-block" type="submit">Criar mesa</button>
+				        <br/>
+				    </form>
+			  	</div>
+			  	<div class="col-md-4" id="mesasJog"><!-- Mesas onde o usuario já jogou -->
+			  	</div>
+			    
+			 </div>
+   		</div>
+	</div>
+	<div></div>
+	<a href="deletar.xhtml" style="float:bottom"><button class="btn btn-primary" type="submit">Apagar Conta</button></a>
   </h:body>
 </html>
