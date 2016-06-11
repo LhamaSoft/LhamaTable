@@ -22,20 +22,28 @@
     <title>Mesa</title>
   </h:head>
 
-  <h:body>
-  	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+  <h:body style="background-color:#553756">
+  	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">        	
-			<div class="col-md-2" id="lateral esq" style="background-color:#553756;">
-						<p style="color:#ffffff">Nome da mesa: </p>
+			<div class="col-md-2 border2" id="lateral esq">
+						<!-- Fazer nome da mesa aparecer aqui em vez de nome da mesa -->
+						<h4 class="heading">Nome da mesa</h4>
 						<p style="color:#ffffff">Mestre: </p>
-   			
-			 	<p>Lateral Esquerda</p>
+						<button class="btn btn-sm btn-primary btn-block" type="button">Editar Mesa</button>
+   				<br/>
+   				<br/>
+			 	<h4 class="heading">Fichas</h4>
+			 	<br/>
+			 	<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha"/>
+			 	<br/>
+			 	<button class="btn btn-primary btn-block" type="button">Criar</button>
+			 	<button class="btn btn-primary btn-block" type="button">Deletar</button>
 			 </div>			 
    			<div class="col-md-7" id="chat">
-			  	<img src="images/ChatExample.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" height="400" />
+			  	<img src="images/ChatExample.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="700" />
 			 </div>
-			 <div class="col-md-3" id="lateral dir" style="background-color:#553756;">
-				 <p>Lateral Direita</p>
+			 <div class="col-md-3 border2" id="lateral dir">
+				 <h4 class="heading">Jogadores</h4>
 			 </div>
 			 
    		</div>
