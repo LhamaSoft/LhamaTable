@@ -1,0 +1,8 @@
+partes
+
+				<div class="col-md-4" id="buscaMesa">
+				<form class="form-signin" method="POST" action="buscaMesa.php">
+				<input id="nomeMesa" class="form-control" placeholder="Nome da Mesa" name="buscaMesa"></input>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Buscar Mesa</button>
+				</form>
+				</div>

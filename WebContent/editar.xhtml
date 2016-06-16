@@ -1,0 +1,53 @@
+<?php 
+	include("login.php");
+	loginCheck();
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+  <head>
+  	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"/>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"/>
+    
+   	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="image/favicon.ico" type="image/x-icon"/>
+    <title>LhamaTable</title>
+
+    <link href="CSS/signin.css" rel="stylesheet"/>
+
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script   src="https://code.jquery.com/jquery-2.2.4.js"   
+    		  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    		  crossorigin="anonymous"/>    
+  </head>
+
+  <body>
+  
+    <div class="container">
+      <form class="form-signin" method="POST" action="update.php">
+        <h2 class="form-signin-heading">Editar dados da conta:</h2>
+        <input id="UserName" class="form-control" placeholder="Usuario" name="novoUser"></input>
+        <input type="email" id="novoEmail" class="form-control" placeholder="Email" required="" name="novoEmail"/>
+		<input type="password" id="ConfPassword" class="form-control" placeholder="Nova Senha*" required="" name="novaSenha"/>        
+        <h5 style="color:#ffffff">*Caso não queira alterar a senha apenas repita a senha atual</h5>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Senha atual" required="" name="inputPassword"/> 
+		<input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" name="inputEmail"/>	
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+        <br/>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

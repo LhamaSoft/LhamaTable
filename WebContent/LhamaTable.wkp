@@ -1,0 +1,64 @@
+<NotepadPlus>
+    <Project name="LhamaTable">
+        <Folder name="CSS">
+            <File name="CSS\css_perfil.css" />
+            <File name="CSS\signin.css" />
+            <File name="CSS\text.css" />
+        </Folder>
+        <Folder name="images">
+            <File name="images\avatar.png" />
+            <File name="images\avatar2.png" />
+            <File name="images\blank.png" />
+            <File name="images\d20.png" />
+            <File name="images\lhamaTableLogo.png" />
+            <File name="images\lhamawarrior.png" />
+            <File name="images\lhamawarrior2.png" />
+            <File name="images\lhamawarrior3.png" />
+            <File name="images\madeira.jpg" />
+        </Folder>
+        <Folder name="META-INF">
+            <File name="META-INF\MANIFEST.MF" />
+        </Folder>
+        <Folder name="uploadFotos">
+            <File name="uploadFotos\13220086_1028423327252447_1952919710_n.jpg" />
+            <File name="uploadFotos\aA1xd8d_460s_v1.jpg" />
+            <File name="uploadFotos\Kvothe.jpg" />
+        </Folder>
+        <Folder name="WEB-INF">
+            <Folder name="lib">
+                <File name="WEB-INF\lib\javax.faces-2.2.9.jar" />
+                <File name="WEB-INF\lib\primefaces-5.3.jar" />
+            </Folder>
+            <File name="WEB-INF\faces-config.xml" />
+            <File name="WEB-INF\web.xml" />
+        </Folder>
+        <File name="alteraMesa.php" />
+        <File name="buscaMesa.php" />
+        <File name="buscaMesa.txt" />
+        <File name="cadastro.php" />
+        <File name="criaMesa.php" />
+        <File name="deletar.xhtml" />
+        <File name="editar.xhtml" />
+        <File name="index.xhtml" />
+        <File name="LhamaTable.wkp" />
+        <File name="login.php" />
+        <File name="mesa.xhtml" />
+        <File name="Pagina de ERRO.php" />
+        <File name="perfil.xhtml" />
+        <File name="pesquisa.php" />
+        <File name="qualquer.cois" />
+        <File name="remove.php" />
+        <File name="removeMesa.php" />
+        <File name="seguranca.php" />
+        <File name="selecionaMesa.php" />
+        <File name="source.php" />
+        <File name="update.php" />
+        <File name="upload.php" />
+        <File name="upload.txt" />
+        <File name="valida.php" />
+        <File name="AlteraFicha.txt" />
+        <File name="buscaFicha.txt" />
+        <File name="criaFicha.txt" />
+        <File name="removeFicha.txt" />
+    </Project>
+</NotepadPlus>

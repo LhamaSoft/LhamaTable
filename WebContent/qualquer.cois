@@ -1,0 +1,48 @@
+<NotepadPlus>
+    <Project name="LhamaTable">
+        <Folder name="CSS">
+            <File name="CSS\css_perfil.css" />
+            <File name="CSS\signin.css" />
+            <File name="CSS\text.css" />
+        </Folder>
+        <Folder name="images">
+            <File name="images\avatar.png" />
+            <File name="images\avatar2.png" />
+            <File name="images\blank.png" />
+            <File name="images\d20.png" />
+            <File name="images\lhamaTableLogo.png" />
+            <File name="images\lhamawarrior.png" />
+            <File name="images\lhamawarrior2.png" />
+            <File name="images\lhamawarrior3.png" />
+            <File name="images\madeira.jpg" />
+        </Folder>
+        <Folder name="META-INF">
+            <File name="META-INF\MANIFEST.MF" />
+        </Folder>
+        <Folder name="uploadFotos">
+            <File name="uploadFotos\Kvothe.jpg" />
+        </Folder>
+        <Folder name="WEB-INF">
+            <Folder name="lib">
+                <File name="WEB-INF\lib\javax.faces-2.2.9.jar" />
+                <File name="WEB-INF\lib\primefaces-5.3.jar" />
+            </Folder>
+            <File name="WEB-INF\faces-config.xml" />
+            <File name="WEB-INF\web.xml" />
+        </Folder>
+        <File name="cadastro.php" />
+        <File name="deletar.xhtml" />
+        <File name="editar.xhtml" />
+        <File name="index.xhtml" />
+        <File name="login.php" />
+        <File name="mesa.xhtml" />
+        <File name="Pagina de ERRO.php" />
+        <File name="perfil.xhtml" />
+        <File name="remove.php" />
+        <File name="seguranca.php" />
+        <File name="source.php" />
+        <File name="update.php" />
+        <File name="valida.php" />
+        <File name="pesquisa.php" />
+    </Project>
+</NotepadPlus>

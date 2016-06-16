@@ -1,0 +1,93 @@
+<?php	
+	include("login.php");
+	loginCheck();
+	$sql = "SELECT ID
+			FROM mesa
+			WHERE nomeMesa = '".$nomeMesa."' ";
+	$query = mysql_query($sql);
+	$result = mysql_fetch_assoc($query);
+	$_SESSION['mesaID'] = $result['ID'];
+	$sql = "INSERT INTO usuarios mesaID	
+			VALUES '".$_SESSION['mesaID']."' ";
+	
+	//include("selecionaMesa.php");
+	//exibeMesas();
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"  
+   xmlns:f="http://java.sun.com/jsf/core"  
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+ 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+ 
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   
+    <link href="CSS/signin.css" rel="stylesheet"/>
+    <link href="CSS/text.css" rel="stylesheet"/>
+ 
+    <link rel="shortcut icon" href="image/lhamaFav.ico"/>
+    <title>Mesa</title>
+  </h:head>
+ 
+  <h:body style="background-color:#553756">
+    <div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+        <div class="row">          
+            <div class="col-md-2 border2" id="lateral esq">
+                        <!-- Fazer nome da mesa aparecer aqui em vez de nome da mesa -->
+                        <h4 class="heading">Nome da mesa: <?php echo $_SESSION['nomeMesa'] ?></h4>						
+                        <p style="color:#ffffff">Mestre:<?php if($_SESSION['mestreID'] == $_SESSION['ID']) echo $_SESSION['usuarioNome']; ?> </p>
+						<form method="POST" action="removeMesa.php">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Remove Mesa</button>
+						</form>
+						<div id="buscaMesa">
+							<form method="POST" action="alteraMesa.php">
+								<input id="nomeMesa" class="form-control" placeholder="Novo Nome" name="alteraMesa"></input>
+								<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="novaSenha"></input>
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Altera Mesa</button>
+							</form>
+						</div>
+
+				<br/>
+                <br/>
+                <h4 class="heading">Fichas</h4>
+			 	<br/>
+						<?php
+							$sql = "SELECT nome
+									FROM ficha
+									WHERE	mesaID = '".$_SESSION['mesaID']."' ";
+									$query = mysql_query($sql) or die (mysql_error());
+									while($row = mysql_fetch_row($query))
+									{
+										$nome = $row[0];
+										echo "<a href='mesa.xhtml' ><div>" . $nome . "</div></a>"; 
+									}
+						?>
+			 	<br/>
+				<form method="POST" action="criaFicha.php">
+				<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
+			 	<button class="btn btn-primary btn-block" type="submit">Criar</button>
+				</form>
+				<form method="POST" action="removeFicha.php">
+				<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
+			 	<button class="btn btn-primary btn-block" type="submit">Deletar</button>
+				</form>				
+             </div>          
+            <div class="col-md-7" id="chat">
+                <img src="images/ChatExample.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="700" />
+             </div>
+             <div class="col-md-3 border2" id="lateral dir">
+                 <h4 class="heading">Jogadores</h4>
+             </div>
+                   </div>
+    </div>
+  </h:body>
+</html>
