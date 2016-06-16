@@ -19,114 +19,58 @@
     
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
-    <link href="CSS/button.css" rel="stylesheet"/>
+  
 	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
     <title>Perfil</title>
   </h:head>
 
   <h:body>
-  	<div class="container border2"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+  	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">
-        	<div role="complementary" class="col-md-2 border2" style="background-color:#693660;">
-	            	   <br/>
+        	<div role="complementary" class="col-md-2" style="background-color:#553756;">
 	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
 						<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
-						
+						<!-- trecho abaixo em testes ainda -->
 						<h:form>						             
-						    <p:commandButton value="Editar Perfil" onclick="PF('edPerfil').show();" type="button"/>
+						    <p:commandButton value="Dynamic Focus" onclick="PF('teste').show();" type="button" icon="ui-icon-extlink" />
 						 
-						    <p:dialog header="Editar" widgetVar="edPerfil" focus="username">
+						    <p:dialog header="Dynamic Focus" widgetVar="teste" focus="age">
 						        <h:panelGrid columns="2" cellpadding="5">
-						            <h:outputLabel for="username" value="Usuário:" />
-						            <p:inputText id="username" label="username" />
+						            <h:outputLabel for="name" value="Name:" />
+						            <p:inputText id="name" label="name" />
 						 
-						            <h:outputLabel for="email" value="Email:" />
-						            <p:inputText id="email" label="email" />
-						            
-						 			<h:outputLabel for="password" value="Senha Atual:" />
-						            <p:inputText type="password" id="inputPassword"/>
-						        
-						            <h:outputLabel for="password" value="Nova Senha*:" />
-						            <p:inputText id="password" label="Password" />
-						            <h6>*Caso não queira alterar a senha apenas coloque sua atual</h6>
-						            <button class="btn btn-sm btn-block" type="submit">Editar Perfil</button>
+						            <h:outputLabel for="surname" value="Surname:" />
+						            <p:inputText id="surname" label="surname" />
+						 
+						            <h:outputLabel for="age" value="Age:" />
+						            <p:inputText id="age" label="age" />
 						        </h:panelGrid>
 						    </p:dialog>
-						</h:form>
-						<h:form>
-						<p:commandButton value="Apagar Conta" onclick="PF('apConta').show();" type="button"/>
-											 
-					    <p:dialog header="Apagar" widgetVar="apConta" focus="email">
-					        <h4 class="form-signin">Confirme seus dados para que a conta seja excluída:</h4>
-						    <br/>
-					        <h:panelGrid columns="2" cellpadding="15">						           
-						        <h:outputLabel for="email" value="Email:" />
-								<p:inputText id="email" label="email" />
-												            
-						        <h:outputLabel for="password" value="Senha:" />
-						        <p:inputText type="password" id="inputPassword"/>
-						        
-						        <button class="btn btn-lg btn-block" type="submit">Apagar</button>
-					        </h:panelGrid>
-					    </p:dialog>
+						 
 						</h:form>
 						<br/>
 						<p class="heading">Nome de Usuário: x</p>
 						<p class="heading">Usuário desde: y</p>						
         	</div>
    			<div class="col-md-8">
-			  				  	
+			  	<h2 class="heading">Mesas</h2>
 			  	<div class="col-md-4" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
-					<h:form>						             
-						    <h3 class="heading">Minhas Mesas</h3>
-						    <br/>
-						    <p:commandButton value="Criar mesa" onclick="PF('crMesa').show();" type="button"/>
-						 
-						    <p:dialog header="Editar" widgetVar="crMesa" focus="nomeMesa">
-						        <h:panelGrid columns="2" cellpadding="15">
-						        <h:outputLabel for="nomeMesa" value="Nome:" />
-						        <p:inputText id="nomeMesa"/>
-						        
-						        <h:outputLabel for="sistema" value="Sistema de Jogo:" />
-						        <p:inputText type="text" id="sistema"/>
-						        
-						        <h:outputLabel for="password" value="Senha:" />
-						        <p:inputText type="password" id="inputPassword"/>
-						        
-						        <h:outputLabel for="password" value="Confirme Senha:" />
-						        <p:inputText type="password" id="ConfPassword"/>
-						        <button class="btn btn-lg btn-block" type="submit">Criar mesa</button>
-						        </h:panelGrid>
-						    </p:dialog>						 
-						</h:form>
-					<form class="form-signin">			        
-				        
+					<form class="form-signin">
+				        <input id="nomeMesa" class="form-control" placeholder="Nome da Mesa"></input>
+				        <input type="text" id="sistema" class="form-control" placeholder="Sistema de Jogo" required=""/>
+				        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required=""/>
+				        <input type="password" id="ConfPassword" class="form-control" placeholder="Nova" required=""/>
+				        <button class="btn btn-lg btn-primary btn-block" type="submit">Criar mesa</button>
+				        <br/>
 				    </form>
 			  	</div>
-			  	
-			  	<div class="col-md-4" id="mesasJog" style="border-style:none none none solid;border-color:#ffffff"><!-- Mesas onde o usuario já jogou -->
-			  	<h:form>						             
-						    <h3 class="heading">Mesas Recentes</h3>
-						    <br/>
-						    <p:commandButton value="Buscar mesa" onclick="PF('buMesa').show();" type="button"/>
-						 
-						    <p:dialog header="Editar" widgetVar="buMesa" focus="Id">
-						        <h:panelGrid columns="2" cellpadding="15">
-							        
-							        <h:outputLabel for="id" value="ID:" />
-							        <p:inputText id="Id"/>
-							        
-							        <h:outputLabel for="password" value="Senha:" />
-							        <p:inputText type="password" id="inputPassword"/>
-							        
-							        <button class="btn btn-lg btn-block" type="submit">Buscar</button>
-						        </h:panelGrid>
-						    </p:dialog>						 
-						</h:form>
+			  	<div class="col-md-4" id="mesasJog"><!-- Mesas onde o usuario já jogou -->
 			  	</div>
 			    
 			 </div>
-   		</div>						
- </div>	
+   		</div>
+	</div>
+	<div></div>
+	<a href="deletar.xhtml" style="float:bottom"><button class="btn btn-primary" type="submit">Apagar Conta</button></a>
   </h:body>
 </html>
