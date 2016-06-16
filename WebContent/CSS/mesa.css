@@ -1,5 +1,29 @@
-buttom{
-	background-color:none;
+button{
+	background-color: rgba(0,0,0,0);
+	border:0px;
 	
+}
+button img{
+	height:50px;
+	width:auto;
+	
+}
+
+#dados{
+	background-color: rgba(0,0,0,0);
+	padding-right: 30%;
+	
+	
+}
+#dados li{
+	float:left;
+}
+#chat{
+	padding: 0px;
+	margin-top: -60px;
+}
+
+#map{
+	margin-right: 50px;
 	
 }
