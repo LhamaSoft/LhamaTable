@@ -1,8 +1,6 @@
-<?php 
+<?php
 	include("login.php");
-	loginCheck();
-	//include("selecionaMesa.php");
-	//exibeMesas();
+			loginCheck();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -10,9 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"  
     xmlns:f="http://java.sun.com/jsf/core"  
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
-  <h:head>
+    xmlns:h="http://java.sun.com/jsf/html">
+  <head>
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 
@@ -21,90 +18,209 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
-	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
     
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
-  
+    <link href="CSS/button.css" rel="stylesheet"/>
 	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
     <title>Perfil</title>
-  </h:head>
+  </head>
 
-  <h:body>
-  	<div class="container"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
+  <body>
+  	<div class="container border2"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">
-        	<div role="complementary" class="col-md-2" style="background-color:#553756;">
+        	<div role="complementary" class="col-md-2 border2" style="background-color:#693660;">
+	            	   <br/>
 	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
 						<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
-						<!-- trecho abaixo em testes ainda -->
-						<h:form>						             
-						    <p:commandButton value="Dynamic Focus" onclick="PF('teste').show();" type="button" icon="ui-icon-extlink" />
-						 
-						    <p:dialog header="Dynamic Focus" widgetVar="teste" focus="age">
-						        <h:panelGrid columns="2" cellpadding="5">
-						            <h:outputLabel for="name" value="Name:" />
-						            <p:inputText id="name" label="name" />
-						 
-						            <h:outputLabel for="surname" value="Surname:" />
-						            <p:inputText id="surname" label="surname" />
-						 
-						            <h:outputLabel for="age" value="Age:" />
-						            <p:inputText id="age" label="age" />
-						        </h:panelGrid>
-						    </p:dialog>
-						 
-						</h:form>
+						
+						<form role="form" method="post" action="update.php">						             
+						        <button class="btn" data-toggle="collapse" data-target="#demo" >Editar</button>
+
+								<div id="demo" class="collapse">
+									<form class="form-horizontal">
+									<fieldset>
+									 <form >
+									<div class="form-group">
+									  <label class=" control-label" for="novoUser">Novo Usuário:</label>
+									  <input id="novoUser" name="novoUser" placeholder="" class="form-control input-md" required="" type="text"/>
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="novoEmail">Novo Email:</label>
+									  <input id="novoEmail" name="novoEmail" placeholder="" class="form-control input-md" required="" type="text" />
+									  <span class="help-block">usuario@email.com</span>
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="novaSenhasenha">Nova Senha:</label>
+									    <input id="novaSenha" name="novaSenha" placeholder="" class="form-control input-md" required="" type="password" />
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="inputPassword">Antiga senha:</label>
+									    <input id="confSenha" name="inputPassword" placeholder="" class="form-control input-md" required="" type="password" />
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="inputEmail">Antigo email:</label>
+									    <input id="email" name="inputEmail" placeholder="" class="form-control input-md" required="" type="text"/>
+									</div>
+									<div class="form-group">
+									  <label class="control-label" for="editar"></label>
+									    <input id="editar" name="editar" class="btn btn-default" value="Concluir" type="submit">
+									</div>
+									</form>
+									</fieldset>
+									</form>
+								</div>
+						</form>
+						
+						<form role="form" method="post" action="remove.php">
+						<button class="btn" data-toggle="collapse" data-target="#apConta" >Apagar Conta</button>
+
+								<div id="apConta" class="collapse heading">
+									<form class="form-horizontal">
+									<fieldset>
+									<div class="form-group">
+									  <label class=" control-label" for="inputEmail">Email:</label>  
+									  <input id="email" name="inputEmail" placeholder="" class="form-control input-md" required="" type="email"/>
+									  
+									</div>	
+									<div class="form-group">
+									  <label class=" control-label" for="inputPassword">Senha:</label>
+									    <input id="senha" name="inputPassword" placeholder="" class="form-control input-md" required="" type="password"/>
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="apagar"></label>
+									    <input id="apagar" name="apagar" class="btn btn-default" type="submit" value="Excluir">
+									</div>
+									
+									</fieldset>
+									</form>
+								</div>
+					   
+						</form>
 						<br/>
-						<p class="heading">Nome de Usuário: <?php echo $_SESSION['usuarioNome'];?></p>
-						<p class="heading">E-Mail: <?php echo $_SESSION['email'];?></p>	
-						<p class="heading">Classe de Usuário: <?php if ($_SESSION['tipoUsuario'] == 1)
-																	{
-																		echo 'administrador';
-																	}
-																	if ($_SESSION['tipoUsuario'] == 0)
-																	{
-																		echo 'Noob';
-																	}
-																	if ($_SESSION['tipoUsuario'] == 2)
-																	{
-																		echo 'premium';
-																	}?></p>	
-						<p class="heading">ID de Usuário: <?php echo $_SESSION['ID'];?></p>												
+						<p class="heading">Nome de Usuário: <?php echo $_SESSION['usuarioNome']; ?></p>
+						<p class="heading">Usuário desde: <?php echo $_SESSION['dataCadastro'];?> </p>
+						<p class="heading">ID: <?php echo $_SESSION['ID']; ?></p>	
+						<p class="heading">E-Mail: <?php echo $_SESSION['email']; ?></p>
+						<p class="heading">Tipo de Usuario: <?php 
+																
+																if($_SESSION['tipoUsuario'] == 0)
+																{
+																	echo 'Cobre';
+																}
+																if($_SESSION['tipoUsuario'] == 1)
+																{
+																	echo 'Administrador';
+																}
+															?>
+						<form method="POST" action="logout.php">
+						<button id="logout" name="logout" class="btn btn-default" type="submit">Sair</button>
+						</form>
+						
         	</div>
+		
    			<div class="col-md-8">
-			  	<h2 class="heading">Mesas</h2>
+			  				  	
 			  	<div class="col-md-4" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
-					<form class="form-signin" method="POST" action="criaMesa.php">
-				        <input id="nomeMesa" class="form-control" placeholder="Nome da Mesa" name="nomeMesa"></input>
-				        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="" name="senhaMesa"/>
-				        <button class="btn btn-lg btn-primary btn-block" type="submit">Criar mesa</button>
-				        <br/>
+					<form role="form" method="post" action="criaMesa.php">						             
+						    <h3 class="heading">Minhas Mesas</h3>
+						    <br/>
+						     <button class="btn" data-toggle="collapse" data-target="#crMesa" >Criar Mesa</button>
+
+								<div id="crMesa" class="collapse heading">
+								
+									<form class="form-horizontal" >
+									
+									<div class="form-group">
+									  <label class=" control-label" for="nomeMesa">Nome:</label>  
+									  <input id="nomeMesa" name="nomeMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+									</div>
+									
+									<div class="form-group">
+									  <label class=" control-label" for="senhaMesa">Senha:</label>
+									    <input id="senhaMesa" name="senhaMesa" placeholder="" class="form-control input-md" required="" type="password"/>
+									</div>
+									
+									<div class="form-group">
+									  <label class=" control-label"></label>
+									    <input id="criar" name="criar" class="btn btn-default" type="submit" value="Criar Mesa"/>
+									</div>	
+									
+									</form>
+								</div>	
+				 
+						</form>
+					<form class="form-signin">			        
+				        
 				    </form>
 			  	</div>
-					<h2 class="heading">Mesas Mestradas</h2>
-						<div>
-							<?php 
-								$sql = 	"SELECT *
-								FROM mesa
-								WHERE mestreID = '".$_SESSION['ID']."'";
+			  	
+			  	<div class="col-md-4" id="mesasJog" style="border-style:none none none solid;border-color:#ffffff"><!-- Mesas onde o usuario já jogou -->
+			  		<form role="form" method="post" action="buscaMesa.php">						             
+						    <h3 class="heading">Buscar Mesa</h3>
+						    <br/>
+						    <button class="btn" data-toggle="collapse" data-target="#buMesa" >Buscar Mesa</button>
+
+								<div id="buMesa" class="collapse heading">
+									<form class="form-horizontal">
+									<fieldset>
+									<div class="form-group">
+									  <label class=" control-label" for="idMesa">ID:</label>  
+									  <input id="idMesa" name="idMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+									  
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="senhaMesa">Senha:</label>
+									    <input id="senha" name="senhaMesa" placeholder="" class="form-control input-md" required="" type="password"/>
+									</div>
+									<div class="form-group">
+									  <label class=" control-label" for="criar"></label>
+									    <input id="buscar" name="buscar" class="btn btn-default" type="submit" type="submit" value="Entrar">
+									</div>
+									
+									</fieldset>
+									</form>
+								</div>							 
+				 		</form>
+			  	</div>
+			    
+				
+				<div class="col-md-4" id="mesaUlt" style="border-style:none none none solid;border-color:#ffffff">
+			  		<form role="form" method="post" action="buscaMesa.php">						             
+						    <h3 class="heading">Voltar a Ultima Mesa</h3>
+							<?php
+								if(isset($_SESSION['mesaID']))
+								{
+									echo '<p class="heading"> Retornar a: <a href="mesa.xhtml">'. $_SESSION['nomeMesa'] .'</a></p>';
+								}
+								else
+								{
+									echo "Você não esta em nenhuma mesa";
+								}
+							?>
+				 		</form>
+			  	</div>
+				
+				<div class="col-md-4" id="mesaMest" style="border-style:none none none solid;border-color:#ffffff">
+			  		<form role="form" method="post" action="buscaMesa.php">						             
+						    <h3 class="heading">Mesas das quais você é mestre</h3>
+							<?php
+								$sql = "SELECT ID, nomeMesa, senhaMesa
+										FROM mesa
+										WHERE mestreID = '".$_SESSION['ID']."' ";
 								$query = mysql_query($sql) or die (mysql_error());
 								while($row = mysql_fetch_row($query))
 								{
-									$nomeMesa = $row[2];
-									echo "<a href='mesa.xhtml' ><div>" . $nomeMesa . "</div></a>"; 
+									$ID = $row[0];
+									$nome = $row[1];
+									$senhaMesa = $row[2];
+									echo nl2br ("ID: $ID | Nome: $nome | Senha: $senhaMesa\n");
 								}
-							?> 				
-					</div>
-			  	<!--<div class="col-md-4" id="mesasJog"> Mesas onde o usuario já jogou
-					<form method="POST" action="selecionaMesa.php">
-					<a href="mesa.xhtml"><?php echo $_SESSION['nomeMesa']; ?></a>;
-					</form>
-				</div> -->
-			    
+							?>
+				 		</form>
+			  	</div>
 			 </div>
-   		</div>
-	</div>
-	<div></div>
-  </h:body>
+   		</div>						
+ </div>	
+  </body>
 </html>

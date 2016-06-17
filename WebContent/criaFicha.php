@@ -2,12 +2,18 @@
 		include("login.php");
 		loginCheck();
 		
-		//recebe os dados do usuário
-		$nomeFicha = $_POST['nomeFicha'];
+		$uploadDir = '/fichas';
 		
-		$sql1 = "SELECT nome
+		$nomeFicha = $_POST['nomeFicha'];
+		$caminhoFicha = "fichas/". $_SESSION['nomeMesa']. "_" .$nomeFicha . ".txt";
+		$ficha = fopen($caminhoFicha, "w");
+		$txt = "Ficha padrão LhamaTable";
+		fwrite($ficha, $txt);
+		
+		$nomeFicha = $_POST['nomeFicha'];
+		$sql1 = "SELECT nome, mesaID
 				FROM ficha
-				WHERE nome = '".$nomeFicha."'"; 
+				WHERE nome = '".$nomeFicha."' AND mesaID = '".$_SESSION['mesaID']."' "; 
 		$query1 = mysql_query($sql1) or die (mysql_error());
 		$resultD = mysql_fetch_assoc($query1);
 		if($resultD)
@@ -16,12 +22,9 @@
 		}
 		else
 		{
-			$sql2 = "INSERT INTO ficha (nome, mesaID) 
-					VALUES ('".$nomeFicha."', '".$_SESSION['mesaID']."')"; 
+			$sql2 = "INSERT INTO ficha (nome, mesaID, caminhoFicha) 
+					VALUES ('".$nomeFicha."', '".$_SESSION['mesaID']."', '".$caminhoFicha."')"; 
 			$query2 = mysql_query($sql2) or die(mysql_error()) ;
-			$result = mysql_fetch_assoc($query2);
-			if(!$result)
-			{
-			}
+			header("location:mesa.xhtml");
 		}
 ?>

@@ -4,16 +4,12 @@ body {
   background-color: #553756;
 }
 
-/*retira a borda do bootstrap da navbar */
-.navbar-default{
-	border: none;
-}
-
 /*right alinha a direita as tags selecionadas*/
 .right {
     float: right;
     width: 300px;
 }
+
 .left {
     float: left;
     width: 300px;
@@ -36,10 +32,8 @@ body {
 .form-signin .checkbox {
   font-weight: normal;
 }
-
-/*posiciona os textbox e botão da parte de login na navbar -> centralizado*/
 .pad{
-	margin:20px 0px 0px 0px;
+	margin:35px 0px 0px 0px;
 }
 .form-signin .form-control {
   
@@ -57,7 +51,15 @@ body {
   margin-bottom: 5px;
 }
 
-/*textbox e botão de login na navbar */
+/* funções da toolbar de login */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	background-color:hsla(0,0%,0%,0.5);
+}
+
 li {
 	padding: 14px 15px;
     float: right;
@@ -67,16 +69,5 @@ li {
     text-decoration: none;
 }
 
-/*container atras da parte de cadastro*/
 .container{
-	overflow: hidden;
-	background-color:hsla(0,0%,0%,0.5);
 }
-
-/*textinho na parte de baixo da img*/
-footer {
-	padding-top: 55px;
-	clear: right;
-	color: white;
-}
-

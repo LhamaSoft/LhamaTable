@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+  <head>
+  	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <title>LhamaTable - Login</title>
+
+    <link href="CSS/signin.css" rel="stylesheet"/>
+
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+  </head>
+
+  <body>
+  
+  	<ul>
+		<form method="POST" action="valida.php">
+			<li class="pad">
+				<button class="btn btn-primary btn-block" type="submit">Entrar</button>
+			</li>
+			<li class="pad">
+				<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="" name="inputPassword"></input>
+			</li>
+			<li class="pad">
+				<input type="email" id="inputEmail" class="form-control" placeholder="E-Mail" required="" name="inputEmail"></input>
+			</li>
+			<li style="float: left;" height="30">
+				<img src="images/lhamaTableLogo.png" class="img-rounded" style="padding:-10px"/>
+			</li>
+		</form>
+	</ul>
+	<br/>
+    <div class="container right">
+      <form class="form-signin" method="POST" action="cadastro.php">
+        <h2 class="form-signin-heading">Crie uma conta:</h2>
+        <input id="UserName" class="form-control" placeholder="Usuario" name="UserName"></input>
+        <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail" name="inputEmail" />
+        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="" name="inputPassword"/>
+        <input type="password" id="ConfPassword" class="form-control" placeholder="Conf. Senha" required=""/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+        <br/>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

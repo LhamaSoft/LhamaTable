@@ -16,7 +16,7 @@
 		
 		function loginDo($email, $senha)
 		{
-			$sql = "SELECT ID, NomeUsuario, email, fotoUsuario, tipoUsuario
+			$sql = "SELECT ID, NomeUsuario, email, fotoUsuario, tipoUsuario, dataCadastro
 					FROM usuarios 
 					WHERE email = '".$email."' AND senha = '".$senha."' LIMIT 1";
 			$query = mysql_query($sql) or die(mysql_error()) ;
@@ -33,6 +33,7 @@
 				$_SESSION['email'] = $result['email'];
 				$_SESSION['fotoUsuario'] = $result['fotoUsuario'];
 				$_SESSION['tipoUsuario'] = $result['tipoUsuario'];
+				$_SESSION['dataCadastro'] = $result['dataCadastro'];
 				header("location:perfil.xhtml");
 			}
 		}
@@ -51,5 +52,6 @@
 			unset($_SESSION['usuarioNome'], $_SESSION['ID']);
 			header("location:index.xhtml");
 		}
+		
 		
 ?>		

@@ -56,9 +56,9 @@
         <File name="upload.php" />
         <File name="upload.txt" />
         <File name="valida.php" />
-        <File name="AlteraFicha.txt" />
+        <File name="AlteraFicha.php" />
         <File name="buscaFicha.txt" />
-        <File name="criaFicha.txt" />
+        <File name="criaFicha.php" />
         <File name="removeFicha.txt" />
     </Project>
 </NotepadPlus>
