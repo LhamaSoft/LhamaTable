@@ -24,7 +24,7 @@
     xmlns:h="http://java.sun.com/jsf/html">
   <head>
   
-	<meta http-equiv="refresh" content="30">
+	<meta http-equiv="refresh" content="60">
 	
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
@@ -44,15 +44,33 @@
     
     <link rel="stylesheet" type="text/css" href="CSS/mesa.css"></link>
     <link rel="stylesheet" type="text/css" href="CSS/button.css"></link>
-    
+    <link rel="stylesheet" type="text/css" href="CSS/textarea.css"></link>
     <link rel="stylesheet" type="text/css" href="js/jScrollPane/jScrollPane.css" />
 	<!--<link rel="stylesheet" type="text/css" href="CSS/page.css" />-->
 	<link rel="stylesheet" type="text/css" href="CSS/chat.css" />
 	
+	<script>
+		function autoRefresh_div()
+		{
+			$("#mensagens").load('mesa.xhtml' + ' #mensagens');// a function which will load data from other file after x seconds
+		}
+ 
+		setInterval('autoRefresh_div()', 5000); // refresh div after 5 secs
+		
+		
+		var height = 0;
+		$('#mensagens').each(function(i, value){
+		height += parseInt($(this).height());
+		});
+
+		height += '';
+
+		$('#mensagens').animate({scrollTop: height});
+    </script>
     
   </head>
 
-  <body style="background-color:#553756">
+  <body style="background-color:#211733">
   	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">        	
 			<div class="col-md-2 border2" id="lateral esq">
@@ -105,11 +123,11 @@
 									</fieldset>
 									</form>
 								</div>
-		<form method="POST" action="saiMesa.php">
-		<button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button>
-		</form> 
-</form>
-
+								<form method="POST" action="saiMesa.php">
+								<button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button>
+								</form> 
+		</form>
+				
    		</div>
    				<br/>
    				<br/>
@@ -134,68 +152,73 @@
 							$query = mysql_query($sql) or die (mysql_error());
 							while($row = mysql_fetch_row($query))
 							{
-								echo "<form method='POST' action='editaFicha.php'>";
-								echo "<input class='btn btn-default' type='submit' name='fichaNome' value='" . $row[0] . "'>";
+								$nome = $row[0];
+								echo nl2br ("$nome \n");
 							}
 				?>
-			 </div>			 
-   			<div class="col-md-7" id="chat">
-			  
-			<div id="chatContainer">
-			
-			    <div id="chatTopBar" class="rounded"></div>
-			    <div id="chatLineHolder"></div>
-			
-			    <!-- <div id="chatUsers" class="rounded"></div> -->
-			    <div id="chatBottomBar" class="rounded">
-			        <div class="tip"></div>
-					
-					<form id="loginForm" method="post" action="">
-					<input id="name" name="name" class="rounded" value="<?php echo $_SESSION['usuarioNome']; ?>"/>
-					<input id="email" name="email" class="rounded" value="<?php echo $_SESSION['email']; ?>" />
-					<input type="submit" class="blueButton" value="Login" />
-					</form>
-			        			
-			        <form id="submitForm" method="post" action="">
-			            <input id="chatText" name="chatText" class="rounded" maxlength="255" />
-			            <input type="submit" class="blueButton" value="Submit" />
-			        </form>
-			
-			    </div>
-			
-			</div>
+			 </div>	
+		 
+		 
+				<div class="col-md-7" id="chat">
+					<div id="mensagens" >
+						<?php 
+							$sql = "SELECT mensagem, jogador, horario
+							FROM chatMensagens
+							WHERE mesaID = '".$_SESSION['mesaID']."'";
+							$query = mysql_query($sql) or die(mysql_error()) ;
+							while($row = mysql_fetch_row($query))
+							{
+								$sql2 = "SELECT nomeUsuario
+										FROM usuarios
+										WHERE ID = '".$row[1]."'";
+								$query2 = mysql_query($sql2) or die(mysql_error()) ;
+								$result = mysql_fetch_assoc($query2);
+								$mensagem = $row[0];
+								$timestamp = strtotime($row[2]);
+								$horario = date('H:i', $timestamp);
+								$jogador = $result['nomeUsuario'];
+								echo nl2br ("$jogador: $mensagem $horario \n");						
+							}
+						?>
+					</div>	
+					<div id="caixa">
+						<form method="POST" action="enviaMensagem.php">
+						<textarea class="col-md-9" rows="1" cols="150" id="mensagem" name="mensagem"> </textarea>
+						<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:160px; height:40px">Enviar</button>
+						</form>
+					</div>	
 
-			 </div>		 
-			 <div class="col-md-3 border2" id="lateral dir">
- 				 <h4 class="heading">Jogadores</h4>
-				 <?php 
-					$sql = "SELECT nomeUsuario
+				</div>
+
+			<div class="col-md-3 border2" id="lateral dir">
+					<h4 class="heading">Jogadores</h4>
+						<?php 
+							$sql = "SELECT nomeUsuario
 							FROM usuarios
 							WHERE mesaID = '".$_SESSION['mesaID']."'";
-					$query = mysql_query($sql) or die(mysql_error()) ;
-					while($row = mysql_fetch_row($query))
-					{
-						$nome = $row[0];
-						echo nl2br ("$nome \n");
-						
-					}
-				 ?>
- 				 
-		 </div>
-			 
-			 <ul id="dados">
+						$query = mysql_query($sql) or die(mysql_error()) ;
+						while($row = mysql_fetch_row($query))
+						{
+							$nome = $row[0];
+							echo nl2br ("$nome \n");
+						}
+						?>
+ 			</div>
+		</div>
+		
+			<ul id="dados">
 			 		<li id="map"><button><img src="images/Map_Icon.png" alt="" /></button></li>
-			 		<li><button><img src="images/d4.png" alt="" /></button></li>
-			 		<li><button><img src="images/d6.png" alt="" /></button></li>
-			 		<li><button><img src="images/d8.png" alt="" /></button></li>
-			 		<li><button><img src="images/d10.png" alt="" /></button></li>
-			 		<li><button><img src="images/d12.png" alt="" /></button></li>
-			 		<li><button><img src="images/d20_icon.png" alt="" /></button></li>
-			 		<li><button><img src="images/d_porcento.png" alt="" /></button></li>
-			 	</ul>
-			 
-	
-   		</div>
+					<li><button type="submit" name="d4"><img src="images/d4.png" alt="" /></button></li>
+					<li><button type="submit" name="d6"><img src="images/d6.png" alt="" /></button></li>
+			 		<li><button type="submit" name="d8"><img src="images/d8.png" alt="" /></button></li>
+			 		<li><button type="submit" name="d10"><img src="images/d10.png" alt="" /></button></li>
+			 		<li><button type="submit" name="d12"><img src="images/d12.png" alt="" /></button></li>
+			 		<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" /></button></li>
+			 		<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" /></button></li>
+			</ul>
+	</div>		 
+
+
    		
 		
 	</div>

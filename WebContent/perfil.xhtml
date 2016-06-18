@@ -189,11 +189,11 @@
 			  		<form role="form" method="post" action="buscaMesa.php">						             
 						    <h3 class="heading">Voltar a Ultima Mesa</h3>
 							<?php
-								if(isset($_SESSION['mesaID']))
+								if(isset($_SESSION['nomeMesa']))
 								{
 									echo '<p class="heading"> Retornar a: <a href="mesa.xhtml">'. $_SESSION['nomeMesa'] .'</a></p>';
 								}
-								else
+								else if(!isset($_SESSION['nomeMesa']))
 								{
 									echo "Você não esta em nenhuma mesa";
 								}

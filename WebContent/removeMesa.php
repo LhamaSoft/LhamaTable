@@ -11,6 +11,9 @@
 					FROM mesa
 					WHERE nomeMesa = '".$_SESSION['nomeMesa']."' ";
 			$query = mysql_query($sql) or die (mysql_error());
+			$sql2 = "DELETE
+					 FROM chatmensagens
+					 WHERE mesaID = '".$_SESSION['mesaID']."'";
 			mesaClear();
 			unset($_SESSION['nomeMesa']);
 			unset($_SESSION['mestreID']);
@@ -28,6 +31,7 @@
 					SET mesaID = 0
 					WHERE mesaID = '".$_SESSION['mesaID']."' ";
 			$query = mysql_query($sql) or die (mysql_error());	
+			
 		}
 
 ?>

@@ -19,4 +19,5 @@
 			{
 				echo "ERRO!!";
 			}
-			header("location:perfil.xhtml");
+			session_destroy();
+			header("location:index.xhtml");

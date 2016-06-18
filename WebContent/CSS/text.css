@@ -9,18 +9,20 @@
 body{
 	background-color:#553756;
 }
+
 .image{
 	float:left;	
 	height: 50px;
 	padding: 0px 5px 0px 0px;
 }
+
 .border{
     border-style: none none solid solid;
     border-width: 5px;
     border-color: ffffff;
     background-color: #460340;
  }
- .user{
+.user{
  	background-color:#460340;
  	/*padding:0px 0px 0px 0px;*/ 
  }
