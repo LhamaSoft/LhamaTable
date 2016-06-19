@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 
 	<!-- jQuery library -->
-	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -27,10 +27,13 @@
     <link rel="stylesheet" type="text/css" href="js/jScrollPane/jScrollPane.css" />
 	<!--<link rel="stylesheet" type="text/css" href="CSS/page.css" />-->
 	<link rel="stylesheet" type="text/css" href="CSS/chat.css" />
+	
+	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+	<script>tinymce.init({ selector: "textarea"});</script>
     
   </head>
 
-  <body style="background-color:#553756">
+  <body style="background-color:#211733">
   	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">        	
 			<div class="col-md-2 border2" id="lateral esq">
@@ -40,88 +43,133 @@
 						<p style="color:#ffffff">Mestre: </p>
 						
 						<div id="menu">
-   		<form>
-        <button class="btn" data-toggle="collapse" data-target="#edMesa" >Editar Mesa</button>
+						<div class="dropdown">
+							  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">MENU
+							  <span class="caret"></span></button>
+							  <ul class="dropdown-menu">
+							    <li><button type="button" data-toggle="modal" data-target="#myEditar">Editar</button></li>
+							    <li><button type="button" data-toggle="modal" data-target="#myDeletar">Deletar</button></li>
+							    <li><a href="perfil.xhtml">Sair</a></li>
+							  </ul>
+						</div>
 
-								<div id="edMesa" class="collapse heading">
-									<form class="form-horizontal">
-									<fieldset>
-									<div class="form-group">
-									  <label class=" control-label" for="id">Nome:</label>  
-									  <input id="idMesa" name="idMesa" placeholder="" class="form-control input-md" required="" type="text"/>
-									  
+						<!-- Modal -->
+						<div id="myEditar" class="modal fade" role="dialog">
+						  <div class="modal-dialog">
+						  
+						   <!-- Modal content-->
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						        <h4 class="modal-title">Editar</h4>
+						      </div>
+						      <div class="modal-body">
+							      <form>
+									<div id="edMesa">
+										<form class="form-horizontal">
+										<fieldset>
+										<div class="form-group">
+										  <label class=" control-label" for="id">Nome:</label>  
+										  <input id="idMesa" name="idMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+										</div>
+										<div class="form-group">
+										  <label class=" control-label" for="senha">Senha:</label>
+										    <input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+										</div>
+										<div class="form-group">
+										  <label class=" control-label" for="criar"></label>
+										    <button id="buscar" name="buscar" class="btn btn-default" type="submit">OK</button>
+										</div>
+										</fieldset>
+										</form>
 									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="senha">Senha:</label>
-									    <input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="criar"></label>
-									    <button id="buscar" name="buscar" class="btn btn-default" type="submit">Editar</button>
-									</div>
-									
-									</fieldset>
 									</form>
-								</div>
-        <button class="btn" data-toggle="collapse" data-target="#deMesa" >Deletar Mesa</button>
+						       </div>
+							</div>
+						  </div>
+						</div>
 
-								<div id="deMesa" class="collapse heading">
-									<form class="form-horizontal">
-									<fieldset>
-									<div class="form-group">
-									  <label class=" control-label" for="senha">Senha:</label>
-									    <input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="criar"></label>
-									    <button id="buscar" name="buscar" class="btn btn-default" type="submit">Excluir</button>
-									</div>
-									
-									</fieldset>
+
+						<!-- Modal -->
+						<div id="myDeletar" class="modal fade" role="dialog">
+						  <div class="modal-dialog">
+							   <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Deletar</h4>
+							      </div>
+							      <div class="modal-body">
+							        <form>
+										<div id="deMesa">
+											<form class="form-horizontal">
+											<fieldset>
+											<div class="form-group">
+											  <label class=" control-label" for="senha">Senha:</label>
+											    <input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+											</div>
+											<div class="form-group">
+											  <label class=" control-label" for="criar"></label>
+											    <button id="buscar" name="buscar" class="btn btn-default" type="submit">Excluir</button>
+											</div>
+											</fieldset>
+											</form>
+										</div>
 									</form>
-								</div>	
-       <a href="perfil.xhtml"><button class="btn">Sair</button></a> 
-</form>
-   		</div>
+							    </div>
+						      </div>
+							</div>
+						 </div>
+					</div>
    				<br/>
    				<br/>
 			 	<h4 class="heading">Fichas</h4>
 			 	<br/>
 			 	<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha"/>
 			 	<br/>
-			 	<button class="btn btn-primary btn-block" type="button">Criar</button>
+			 	<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myFicha">Criar Ficha</button>
 			 	<button class="btn btn-primary btn-block" type="button">Deletar</button>
-			 </div>			 
-   			<div class="col-md-7" id="chat">
-			  
-			<div id="chatContainer">
+			 </div>
+			 
+			 <!-- Modal -->
+			<div id="myFicha" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
 			
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Nova Ficha</h4>
+			      </div>									  
+				  <div class="modal-body">
+			        <p><textarea>Personagem: NerFenris lv:17</textarea></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="submit" class="btn btn-default">Salvar</button>
+			      </div>
+			    </div>
+ 			  </div>
+			</div>
+   			<div class="col-md-7" id="chat">
+			<div id="chatContainer">
 			    <div id="chatTopBar" class="rounded"></div>
 			    <div id="chatLineHolder"></div>
-			
 			    <!-- <div id="chatUsers" class="rounded"></div> -->
 			    <div id="chatBottomBar" class="rounded">
 			        <div class="tip"></div>
-			        			
 			        <form id="submitForm" method="post" action="">
 			            <input id="chatText" name="chatText" class="rounded" maxlength="255" />
 			            <input type="submit" class="blueButton" value="Submit" />
 			        </form>
-			
 			    </div>
-			
 			</div>
-
 			 </div>		 
 			 <div class="col-md-3 border2" id="lateral dir">
  				 <h4 class="heading">Jogadores</h4>
- 				 
--				
-+			 </div>
+      		 </div>
 			 <div class="col-lg-12">
-			 
-			 <ul id="dados">
-			 		<li id="map"><button><img src="images/Map_Icon.png" alt="" /></button></li>
+			 	<ul id="dados" style="list-style-type:none">
+			 		<li id="map"><button type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" /></button></li>
 			 		<li><button><img src="images/d4.png" alt="" /></button></li>
 			 		<li><button><img src="images/d6.png" alt="" /></button></li>
 			 		<li><button><img src="images/d8.png" alt="" /></button></li>
@@ -130,12 +178,25 @@
 			 		<li><button><img src="images/d20_icon.png" alt="" /></button></li>
 			 		<li><button><img src="images/d_porcento.png" alt="" /></button></li>
 			 	</ul>
-			 
 			 </div>
-	
    		</div>
-   		
 	</div>
+	<!-- Modal -->
+	<div id="myMap" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	  <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Mapa</h4>
+	      </div>
+	      <div class="modal-body">
+	        <img src="images/mapa.png" style = "width: 550px"></img>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+  
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="js/jScrollPane/jquery.mousewheel.js"></script>
 	<script src="js/jScrollPane/jScrollPane.min.js"></script>
