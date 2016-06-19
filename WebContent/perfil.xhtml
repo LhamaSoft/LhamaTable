@@ -121,7 +121,7 @@
 		
    			<div class="col-md-8">
 			  				  	
-			  	<div class="col-md-4" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
+			  	<div class="col-md-8" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
 					<form role="form" method="post" action="criaMesa.php">						             
 						    <h3 class="heading">Minhas Mesas</h3>
 						    <br/>
@@ -150,14 +150,11 @@
 								</div>	
 				 
 						</form>
-					<form class="form-signin">			        
-				        
-				    </form>
 			  	</div>
 			  	
-			  	<div class="col-md-4" id="mesasJog" style="border-style:none none none solid;border-color:#ffffff"><!-- Mesas onde o usuario já jogou -->
+			  	<div class="col-md-8" id="mesasJog" ><!-- Mesas onde o usuario já jogou -->
 			  		<form role="form" method="post" action="buscaMesa.php">						             
-						    <h3 class="heading">Buscar Mesa</h3>
+						    <h3 class="heading">Entre em uma Mesa</h3>
 						    <br/>
 						    <button class="btn" data-toggle="collapse" data-target="#buMesa" >Buscar Mesa</button>
 
@@ -184,24 +181,7 @@
 				 		</form>
 			  	</div>
 			    
-				
-				<div class="col-md-4" id="mesaUlt" style="border-style:none none none solid;border-color:#ffffff">
-			  		<form role="form" method="post" action="buscaMesa.php">						             
-						    <h3 class="heading">Voltar a Ultima Mesa</h3>
-							<?php
-								if(isset($_SESSION['nomeMesa']))
-								{
-									echo '<p class="heading"> Retornar a: <a href="mesa.xhtml">'. $_SESSION['nomeMesa'] .'</a></p>';
-								}
-								else if(!isset($_SESSION['nomeMesa']))
-								{
-									echo "Você não esta em nenhuma mesa";
-								}
-							?>
-				 		</form>
-			  	</div>
-				
-				<div class="col-md-4" id="mesaMest" style="border-style:none none none solid;border-color:#ffffff">
+				<div class="col-md-8" id="mesaMest">
 			  		<form role="form" method="post" action="buscaMesa.php">						             
 						    <h3 class="heading">Mesas das quais você é mestre</h3>
 							<?php
@@ -214,11 +194,25 @@
 									$ID = $row[0];
 									$nome = $row[1];
 									$senhaMesa = $row[2];
-									echo nl2br ("ID: $ID | Nome: $nome | Senha: $senhaMesa\n");
+									echo "<p style='color:white'>ID: ".$ID." | Nome: ".$nome." | Senha: ".$senhaMesa."</br></p>";
 								}
 							?>
 				 		</form>
 			  	</div>
+				
+				<div class="col-md-8" id="mesaUlt">
+			  		<form role="form" method="post" action="buscaMesa.php">
+						<?php
+							if(isset($_SESSION['nomeMesa']))
+							{					
+							echo "<h3 class='eading'  style='color:white'>Voltar a Ultima Mesa</h3>";
+							echo "<p class='heading' style='color:white'> Retornar a: <a href='mesa.xhtml'>". $_SESSION['nomeMesa'] ."</a></p>";
+							}
+						?>
+				 	</form>
+			  	</div>
+				
+				
 			 </div>
    		</div>						
  </div>	

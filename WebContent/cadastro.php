@@ -2,7 +2,7 @@
  
 $login = $_POST['UserName'];
 $email = $_POST['inputEmail'];
-$senha = $_POST['inputPassword'];
+$senha = MD5($_POST['inputPassword']);
 $dataNascimento = $_POST['dataNascimento'];
 $connect = mysql_connect('localhost','root','');
 $db = mysql_select_db('lhamatable');

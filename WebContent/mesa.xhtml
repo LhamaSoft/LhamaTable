@@ -74,14 +74,92 @@
   	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">        	
 			<div class="col-md-2 border2" id="lateral esq">
-						<!-- Fazer nome da mesa aparecer aqui em vez de nome da mesa -->
-						<h4 class="heading">Nome da Mesa: <?php echo $_SESSION['nomeMesa']; ?></h4>
-						<p style="color:#ffffff">ID: <?php echo $_SESSION['mesaID']; ?></p>
-						<p style="color:#ffffff">Mestre: <?php echo $_SESSION['mestreNome']; ?></p>
-						
-						<div id="menu">
-   		<form role="form" method="post" action="alteraMesa.php">
-        <button class="btn" data-toggle="collapse" data-target="#edMesa" >Editar Mesa</button>
+				<h4 class="heading"><?php echo $_SESSION['nomeMesa']; ?></h4>
+				<p style="color:#ffffff">ID: <?php echo $_SESSION['mesaID']; ?></p>
+				<p style="color:#ffffff">Mestre: <?php echo $_SESSION['mestreNome']; ?></p>
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">MENU
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><button type="button" data-toggle="modal" data-target="#myEditar">Editar</button></li>
+						<li><button type="button" data-toggle="modal" data-target="#myDeletar">Deletar</button></li>
+					</ul>
+				</div>
+<!-- Modal -->
+				<div id="myEditar" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Editar</h4>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div id="edMesa">
+										<form class="form-horizontal">
+											<fieldset>
+												<div class="form-group">
+													<label class=" control-label" for="id">Nome:</label>  
+													<input id="idMesa" name="idMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+												</div>
+												<div class="form-group">
+													<label class=" control-label" for="senha">Senha:</label>
+													<input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+												</div>
+												<div class="form-group">
+													<label class=" control-label" for="criar"></label>
+													<button id="buscar" name="buscar" class="btn btn-default" type="submit">OK</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+								</form>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+				<div id="myDeletar" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Deletar</h4>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div id="deMesa">
+										<form class="form-horizontal">
+											<fieldset>
+												<div class="form-group">
+													<label class=" control-label" for="senha">Senha:</label>
+													<input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+												</div>
+												<div class="form-group">
+													<label class=" control-label" for="criar"></label>
+													<button id="buscar" name="buscar" class="btn btn-default" type="submit">Excluir</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+								</form>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="menu">
+					<form role="form" method="post" action="alteraMesa.php">
+						<button class="btn" data-toggle="collapse" data-target="#edMesa" >Editar Mesa</button>
 
 								<div id="edMesa" class="collapse heading">
 									<form class="form-horizontal">
@@ -160,7 +238,7 @@
 		 
 		 
 				<div class="col-md-7" id="chat">
-					<div id="mensagens" >
+					<div id="mensagens">
 						<?php 
 							$sql = "SELECT mensagem, jogador, horario
 							FROM chatMensagens
@@ -169,17 +247,17 @@
 							while($row = mysql_fetch_row($query))
 							{
 								$sql2 = "SELECT nomeUsuario
-										FROM usuarios
-										WHERE ID = '".$row[1]."'";
+									FROM usuarios
+									WHERE ID = '".$row[1]."'";
 								$query2 = mysql_query($sql2) or die(mysql_error()) ;
 								$result = mysql_fetch_assoc($query2);
 								$mensagem = $row[0];
 								$timestamp = strtotime($row[2]);
 								$horario = date('H:i', $timestamp);
 								$jogador = $result['nomeUsuario'];
-								echo nl2br ("$jogador: $mensagem $horario \n");						
+								echo "<p style='font-family:Fantasy;'>".$jogador.": ".$mensagem." ".$horario."</p>";						
 							}
-						?>
+							?>
 					</div>	
 					<div id="caixa">
 						<form method="POST" action="enviaMensagem.php">
@@ -204,27 +282,46 @@
 						}
 						?>
  			</div>
-		</div>
+		</div>	
 		
-			<ul id="dados">
-			 		<li id="map"><button><img src="images/Map_Icon.png" alt="" /></button></li>
-					<li><button type="submit" name="d4"><img src="images/d4.png" alt="" /></button></li>
-					<li><button type="submit" name="d6"><img src="images/d6.png" alt="" /></button></li>
-			 		<li><button type="submit" name="d8"><img src="images/d8.png" alt="" /></button></li>
-			 		<li><button type="submit" name="d10"><img src="images/d10.png" alt="" /></button></li>
-			 		<li><button type="submit" name="d12"><img src="images/d12.png" alt="" /></button></li>
-			 		<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" /></button></li>
-			 		<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" /></button></li>
-			</ul>
+			<div class="col-md-10">
+				<ul id="dados">
+					<form method="POST" action="enviaMensagem.php"
+						<li id="map"><button type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" /></button></li>
+						<li><button type="submit" name="d4"><img src="images/d4.png" alt="" /></button></li>
+						<li><button type="submit" name="d6"><img src="images/d6.png" alt="" /></button></li>
+						<<li><button type="submit" name="d8"><img src="images/d8.png" alt="" /></button></li>
+						<li><button type="submit" name="d10"><img src="images/d10.png" alt="" /></button></li>
+						<li><button type="submit" name="d12"><img src="images/d12.png" alt="" /></button></li>
+						<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" /></button></li>
+						<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" /></button></li>
+					</form>
+				</ul>
+			</div>
+		
+		
+		<div id="myMap" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+			<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Mapa</h4>
+					</div>
+					<div class="modal-body">
+						<img src="images/mapa.png" style = "width: 550px"></img>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>	
 	</div>		 
 
 
    		
 		
 	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script src="js/jScrollPane/jquery.mousewheel.js"></script>
-	<script src="js/jScrollPane/jScrollPane.min.js"></script>
-	<script src="js/script.js"></script>
   </body>
 </html>

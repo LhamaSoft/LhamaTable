@@ -18,7 +18,7 @@
 		{
 			$sql = "SELECT ID, NomeUsuario, email, fotoUsuario, tipoUsuario, dataCadastro
 					FROM usuarios 
-					WHERE email = '".$email."' AND senha = '".$senha."' LIMIT 1";
+					WHERE email = '".$email."' AND senha = '".MD5($senha)."' LIMIT 1";
 			$query = mysql_query($sql) or die(mysql_error()) ;
 			$result = mysql_fetch_assoc($query);
 			//se não
@@ -33,7 +33,9 @@
 				$_SESSION['email'] = $result['email'];
 				$_SESSION['fotoUsuario'] = $result['fotoUsuario'];
 				$_SESSION['tipoUsuario'] = $result['tipoUsuario'];
-				$_SESSION['dataCadastro'] = $result['dataCadastro'];
+				$timestamp = strtotime($result['dataCadastro']);
+				$userDD = date('d/m/y', $timestamp);
+				$_SESSION['dataCadastro'] = $userDD;
 				header("location:perfil.xhtml");
 			}
 		}
