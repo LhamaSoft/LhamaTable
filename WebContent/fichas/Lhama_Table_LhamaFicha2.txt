@@ -1,0 +1,1 @@
+<p>Estou editando essa <span style="color: #ff0000;">outra ficha de novo<br /></span></p>

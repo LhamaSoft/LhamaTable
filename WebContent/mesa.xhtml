@@ -37,6 +37,10 @@
     
     <!--<link href="CSS/signin.css" rel="stylesheet"/>-->
     <link href="CSS/text.css" rel="stylesheet"/>
+	
+	<script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
+
+	
     
   
 	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
@@ -45,7 +49,6 @@
     <link rel="stylesheet" type="text/css" href="CSS/mesa.css"></link>
     <link rel="stylesheet" type="text/css" href="CSS/button.css"></link>
     <link rel="stylesheet" type="text/css" href="CSS/textarea.css"></link>
-    <link rel="stylesheet" type="text/css" href="js/jScrollPane/jScrollPane.css" />
 	<!--<link rel="stylesheet" type="text/css" href="CSS/page.css" />-->
 	<link rel="stylesheet" type="text/css" href="CSS/chat.css" />
 	
@@ -55,37 +58,48 @@
 			$("#mensagens").load('mesa.xhtml' + ' #mensagens');// a function which will load data from other file after x seconds
 		}
  
-		setInterval('autoRefresh_div()', 5000); // refresh div after 5 secs
+		setInterval('autoRefresh_div()', 3000); // refresh div after 5 secs
 		
 		
-		var height = 0;
-		$('#mensagens').each(function(i, value){
-		height += parseInt($(this).height());
-		});
-
-		height += '';
-
-		$('#mensagens').animate({scrollTop: height});
     </script>
+	
+	<script type="text/javascript">
+	  tinymce.init({
+		selector: '#editaFicha',
+		theme: 'modern',
+		width: 570,
+		height: 300,
+		plugins: [
+		  'advlist autolink link image lists charmap hr',
+		  'searchreplace wordcount media nonbreaking',
+		  'save contextmenu directionality emoticons paste textcolor'
+		],
+		content_css: 'css/content.css',
+		toolbar: 'insertfile undo redo | bold italic | link image | forecolor emoticons'
+	  });
+  </script>
     
   </head>
 
-  <body style="background-color:#211733">
+<body style="background-color:#211733">
   	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
 		<div class="row">        	
-			<div class="col-md-2 border2" id="lateral esq">
+			<div class="col-md-2 border2" id="lateral_esq">
 				<h4 class="heading"><?php echo $_SESSION['nomeMesa']; ?></h4>
 				<p style="color:#ffffff">ID: <?php echo $_SESSION['mesaID']; ?></p>
 				<p style="color:#ffffff">Mestre: <?php echo $_SESSION['mestreNome']; ?></p>
-				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">MENU
-					<span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><button type="button" data-toggle="modal" data-target="#myEditar">Editar</button></li>
-						<li><button type="button" data-toggle="modal" data-target="#myDeletar">Deletar</button></li>
+				<div class="dropdown" >
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">MESA<span class="caret"></span></button>
+					<ul class="dropdown-menu" style="background-color:rgba(0,0,0,0)">
+						<li><button type="button" data-toggle="modal" data-target="#myEditar" class="btn btn-default">Editar</button></li>
+						<li><button type="button" data-toggle="modal" data-target="#myDeletar" class="btn btn-default">Deletar</button></li>
+						<form method="POST" action="saiMesa.php">
+						<li><button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button></li>
+						<li><button type="button" data-toggle="modal" data-target="#editarFicha" class="btn btn-default">EditarFicha</button></li>
+						</form>
 					</ul>
 				</div>
-<!-- Modal -->
+				<!-- Modal -->
 				<div id="myEditar" class="modal fade" role="dialog">
 					<div class="modal-dialog">
 						<!-- Modal content-->
@@ -95,17 +109,17 @@
 								<h4 class="modal-title">Editar</h4>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form role="form" method="post" action="alteraMesa.php">
 									<div id="edMesa">
 										<form class="form-horizontal">
 											<fieldset>
 												<div class="form-group">
-													<label class=" control-label" for="id">Nome:</label>  
-													<input id="idMesa" name="idMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+													<label class=" control-label" for="alteraMesa">Nome:</label>  
+													<input id="alteraMesa" name="alteraMesa" placeholder="" class="form-control input-md" required="" type="text"/>
 												</div>
 												<div class="form-group">
-													<label class=" control-label" for="senha">Senha:</label>
-													<input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+													<label class=" control-label" for="novaSenha">Senha:</label>
+													<input id="novaSenha" name="novaSenha" placeholder="" class="form-control input-md" required="" type="password"/>
 												</div>
 												<div class="form-group">
 													<label class=" control-label" for="criar"></label>
@@ -115,9 +129,6 @@
 										</form>
 									</div>
 								</form>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								</div>
 							</div>
 
 						</div>
@@ -133,93 +144,96 @@
 								<h4 class="modal-title">Deletar</h4>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form role="form" method="post" action="removeMesa.php">
 									<div id="deMesa">
 										<form class="form-horizontal">
 											<fieldset>
 												<div class="form-group">
-													<label class=" control-label" for="senha">Senha:</label>
-													<input id="senha" name="senha" placeholder="" class="form-control input-md" required="" type="password"/>
+													<label class=" control-label" for="removeMesa">Senha:</label>
+													<input id="removeMesa" name="removeMesa" placeholder="" class="form-control input-md" required="" type="password"/>
 												</div>
 												<div class="form-group">
-													<label class=" control-label" for="criar"></label>
-													<button id="buscar" name="buscar" class="btn btn-default" type="submit">Excluir</button>
+													<label class=" control-label" for="removeM"></label>
+													<input id="removeM" name="removeM" class="btn btn-default" value="Confirmar" type="submit" >
 												</div>
 											</fieldset>
 										</form>
 									</div>
 								</form>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div id="menu">
-					<form role="form" method="post" action="alteraMesa.php">
-						<button class="btn" data-toggle="collapse" data-target="#edMesa" >Editar Mesa</button>
-
-								<div id="edMesa" class="collapse heading">
-									<form class="form-horizontal">
-									<fieldset>
-									<div class="form-group">
-									  <label class=" control-label" for="alteraMesa">Nome:</label>  
-									  <input id="idMesa" name="alteraMesa" placeholder="" class="form-control input-md" required="" type="text"/>
-									  
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="novaSenha">Senha:</label>
-									    <input id="senha" name="novaSenha" placeholder="" class="form-control input-md" required="" type="password"/>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="alterarM"></label>
-									    <input id="alterarM" name="alterarM" class="btn btn-default" value="alterarM" type="submit">
-									</div>
-									
-									</fieldset>
-									</form>
-								</div>
-		</form>
-		
-		<form role="form" method="post" action="removeMesa.php">
-        <button class="btn" data-toggle="collapse" data-target="#deMesa" >Deletar Mesa</button>
-
-								<div id="deMesa" class="collapse heading">
-									<form class="form-horizontal">
-									<fieldset>
-									<div class="form-group">
-									  <label class=" control-label" for="removeMesa">Senha:</label>
-									    <input id="removeMesa" name="removeMesa" placeholder="" class="form-control input-md" required="" type="password"/>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="removeM"></label>
-									    <input id="removeM" name="removeM" class="btn btn-default" value="Alterar" type="submit" >
-									</div>
-									
-									</fieldset>
-									</form>
-								</div>
-								<form method="POST" action="saiMesa.php">
-								<button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button>
-								</form> 
-		</form>
+				<div class="dropdown" >
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">FICHAS<span class="caret"></span></button>
+					<ul class="dropdown-menu" style="background-color:rgba(0,0,0,0)">
+						<?php
+							$sql = "SELECT nome, caminhoFicha
+							FROM ficha
+							WHERE mesaID = '".$_SESSION['mesaID']."' ";
+							$query = mysql_query($sql) or die (mysql_error());
+							while($row = mysql_fetch_row($query))
+							{
+								$nome = $row[0];
+								echo '<li><button type="button" data-toggle="modal" data-target="#editarFicha" class="btn btn-default">'.$nome.'</button></li>';
+							}
+							
+						?>
+					</ul>
+				</div>
 				
-   		</div>
+				<div id="editarFicha" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Editar Ficha</h4>
+							</div>
+							<div class="modal-body">
+								<form role="form" method="post" action="editaFicha.php">
+									<div id="edMesa">
+										<form class="form-horizontal">
+											<textarea id="editaFicha" name="editaFicha">
+												<?php
+													$sql = "SELECT nome, caminhoFicha
+															FROM ficha
+															WHERE mesaID = '".$_SESSION['mesaID']."' AND nome = '".$nome."' ";
+													$query = mysql_query($sql) or die (mysql_error());
+													$result = mysql_fetch_assoc($query);
+													$_SESSION['caminhoFicha'] = $result['caminhoFicha'];
+													$caminhoFicha = $result['caminhoFicha'];
+													echo file_get_contents("$caminhoFicha");
+												?>
+											</textarea>
+											<div class="form-group">
+													<label class=" control-label" for="eFicha"></label>
+													<input id="eFicha" name="eFicha" class="btn btn-default" value="Salvar" type="submit" >	
+											</div>
+										</form>
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+				
    				<br/>
    				<br/>
 			 	<h4 class="heading">Criar Fichas</h4>
 			 	<br/>
-				<form method="POST" action="criaFicha.php">
-			 	<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
-			 	<button class="btn btn-primary btn-block" type="submit">Criar</button>
-				</form>
+					<form method="POST" action="criaFicha.php">
+						<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
+						<button class="btn btn-primary btn-block" type="submit">Criar</button>
+					</form>
 				
 				</br>
-				<form method="POST" action="removeFicha.php">
-				<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
-			 	<button class="btn btn-primary btn-block" type="submit">Deletar</button>
+					<form method="POST" action="removeFicha.php">
+						<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
+						<button class="btn btn-primary btn-block" type="submit">Deletar</button>
 				</form>
 				
 				<h4 class="heading">Fichas na Mesa</h4>
@@ -231,44 +245,47 @@
 							while($row = mysql_fetch_row($query))
 							{
 								$nome = $row[0];
-								echo nl2br ("$nome \n");
+								echo "<p style='color:white'>".$nome."</p>";
 							}
 				?>
 			 </div>	
 		 
 		 
-				<div class="col-md-7" id="chat">
-					<div id="mensagens">
-						<?php 
-							$sql = "SELECT mensagem, jogador, horario
-							FROM chatMensagens
-							WHERE mesaID = '".$_SESSION['mesaID']."'";
-							$query = mysql_query($sql) or die(mysql_error()) ;
-							while($row = mysql_fetch_row($query))
-							{
-								$sql2 = "SELECT nomeUsuario
-									FROM usuarios
-									WHERE ID = '".$row[1]."'";
-								$query2 = mysql_query($sql2) or die(mysql_error()) ;
-								$result = mysql_fetch_assoc($query2);
-								$mensagem = $row[0];
-								$timestamp = strtotime($row[2]);
-								$horario = date('H:i', $timestamp);
-								$jogador = $result['nomeUsuario'];
-								echo "<p style='font-family:Fantasy;'>".$jogador.": ".$mensagem." ".$horario."</p>";						
-							}
+				<div class="col-md-8 border2" id="chat">
+					<div id="mensagens" >
+						<div id="mInner">
+							<?php 
+								$sql = "SELECT mensagem, jogador, horario
+								FROM chatMensagens
+								WHERE mesaID = '".$_SESSION['mesaID']."'";
+								$query = mysql_query($sql) or die(mysql_error()) ;
+								while($row = mysql_fetch_row($query))
+								{
+									$sql2 = "SELECT nomeUsuario
+										FROM usuarios
+										WHERE ID = '".$row[1]."'";
+									$query2 = mysql_query($sql2) or die(mysql_error()) ;
+									$result = mysql_fetch_assoc($query2);
+									$mensagem = $row[0];
+									$timestamp = strtotime($row[2]);
+									$horario = date('H:i', $timestamp);
+									$jogador = $result['nomeUsuario'];
+									echo "<div id='mJogador' style='color:white'>".$jogador.":  ".$mensagem."</div>";
+									echo "<div id='mHorario'>".$horario."</div></br>";
+								}
 							?>
-					</div>	
+						</div>
+					</div>
+					
 					<div id="caixa">
 						<form method="POST" action="enviaMensagem.php">
-						<textarea class="col-md-9" rows="1" cols="150" id="mensagem" name="mensagem"> </textarea>
-						<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:160px; height:40px">Enviar</button>
+							<textarea class="col-md-10" rows="1" cols="90" id="mensagem" name="mensagem"  style="width:556px; height:40px"> </textarea>
+							<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:160px; height:40px">Enviar</button>
 						</form>
-					</div>	
-
+					</div>
 				</div>
 
-			<div class="col-md-3 border2" id="lateral dir">
+			<div class="col-md-3 border2" id="lateral_dir">
 					<h4 class="heading">Jogadores</h4>
 						<?php 
 							$sql = "SELECT nomeUsuario
@@ -278,23 +295,25 @@
 						while($row = mysql_fetch_row($query))
 						{
 							$nome = $row[0];
-							echo nl2br ("$nome \n");
+							echo "<p style='color:white'>".$nome."</p>";
 						}
 						?>
  			</div>
 		</div>	
 		
 			<div class="col-md-10">
-				<ul id="dados">
-					<form method="POST" action="enviaMensagem.php"
-						<li id="map"><button type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" /></button></li>
-						<li><button type="submit" name="d4"><img src="images/d4.png" alt="" /></button></li>
-						<li><button type="submit" name="d6"><img src="images/d6.png" alt="" /></button></li>
-						<<li><button type="submit" name="d8"><img src="images/d8.png" alt="" /></button></li>
-						<li><button type="submit" name="d10"><img src="images/d10.png" alt="" /></button></li>
-						<li><button type="submit" name="d12"><img src="images/d12.png" alt="" /></button></li>
-						<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" /></button></li>
-						<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" /></button></li>
+				<ul id="dados" >
+					<form method="POST" action="enviaMensagem.php">
+						<div style="width:1050px">
+							<li id="map"><button type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" style="widht:50px; height:50px"/></button></li>
+							<li><button type="submit" name="d4"><img src="images/d4.png" alt="" style="height:50px"/></button></li>
+							<li><button type="submit" name="d6"><img src="images/d6.png" alt="" style="height:50px"/></button></li>
+							<<li><button type="submit" name="d8"><img src="images/d8.png" alt="" style="height:50px" /></button></li>
+							<li><button type="submit" name="d10"><img src="images/d10.png" alt="" style="height:50px"/></button></li>
+							<li><button type="submit" name="d12"><img src="images/d12.png" alt="" style="height:50px"/></button></li>
+							<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" style="height:50px"/></button></li>
+							<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" style="widht:50px; height:50px"/></button></li>
+						</div>	
 					</form>
 				</ul>
 			</div>

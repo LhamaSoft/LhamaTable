@@ -3,8 +3,7 @@
 			loginCheck();
 			
 			
-			$novoNome = $_POST['alteraMesa'];
-			$novaSenha = $_POST['novaSenha'];
+			$novoNome = $_POST['alteraFicha'];
 			$sql = "UPDATE ficha
 				SET nome = '".$novoNome."'
 				WHERE ID = '".$_SESSION['mesaID']."' ";
