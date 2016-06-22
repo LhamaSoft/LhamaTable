@@ -1,10 +1,14 @@
+<?php
+	include("login.php");
+?>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"  
     xmlns:f="http://java.sun.com/jsf/core"  
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:h="http://java.sun.com/jsf/html">
   <head>
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
@@ -16,8 +20,9 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	<!-- script pra mask--> 
-	<script src="jquery.maskedinput.js" type="text/javascript"></script>
-	<script src="jquery.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-3.0.0.js" type="text/javascript"></script>
+	<script src="https://raw.githubusercontent.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.js" type="text/javascript"></script>
+
 
     
     <title>LhamaTable</title>
@@ -27,9 +32,9 @@
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
     
     <script> //+++++++++++++ esse código não está funcionando na mascara da data de nascimento ++++++++++++++++//
-    jQuery(function($){
-        $("#dataNascimento").mask("99/99/9999");
-    });(jQuery)
+		jQuery(function($){
+			$("#cadNasc").mask("99/99/9999");
+		});(jQuery)
     </script>
   </head>
 
@@ -39,35 +44,95 @@
     		<div class="navbar-header">
 	     	 	<img src="images/lhamaTableLogo.png"/>
 	    	</div>
-			<form method="POST" action="source.php">
-		  	<ul class="nav navbar-nav navbar-right">
-				
-		  		<li class="pad">
-		  			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="inputEmail"></input>
-				</li>
-		  		<li class="pad">
-					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" name="inputPassword"></input>
-				</li>
-		  		<li class="pad">
-		  			<button class="btn btn-primary btn-block" type="submit">Entrar</button>
-		  		</li>
-				
-			</ul>
+			<form method="POST" action="">
+				<ul class="nav navbar-nav navbar-right">	
+					<li class="pad">
+						<input type="email" id="loginEmail" class="form-control" placeholder="Email address" name="loginEmail"></input>
+					</li>
+					<li class="pad">
+						<input type="password" id="loginPassword" class="form-control" placeholder="Password" required="" name="loginPassword"></input>
+					</li>
+					<li class="pad">
+						<button class="btn btn-primary btn-block" type="submit">Entrar</button>
+					</li>
+				</ul>
 			</form>
+			<?php 
+				if(isset($_POST['loginEmail']) AND isset($_POST['loginPassword']))
+				{
+					$email = $_POST['loginEmail'];
+					$senha = $_POST['loginPassword'];
+					$sql = "SELECT ID, NomeUsuario, email, caminhoFoto, tipoUsuario, dataCadastro
+					FROM usuarios 
+					WHERE email = '".$email."' AND senha = '".MD5($senha)."' LIMIT 1";
+					$query = mysql_query($sql) or die(mysql_error()) ;
+					$result = mysql_fetch_assoc($query);
+					if(empty($result))
+					{
+						echo "<script language='javascript' type='text/javascript'>alert('Erro no Login');window.location.href='index.xhtml';</script>";
+					}
+					else
+					{
+						$_SESSION['usuarioNome'] = $result['NomeUsuario'];
+						$_SESSION['ID'] = $result['ID'];
+						$_SESSION['email'] = $result['email'];
+						$_SESSION['fotoUsuario'] = $result['caminhoFoto'];
+						$_SESSION['tipoUsuario'] = $result['tipoUsuario'];
+						$timestamp = strtotime($result['dataCadastro']);
+						$userDD = date('d/m/y', $timestamp);
+						$_SESSION['dataCadastro'] = $userDD;
+						header("location:perfil.xhtml");
+					}
+				}
+			?>
 		</div>
 	</nav>
 	<br/>
 	   	<div class="container right">
-      	<form class="form-signin" method="POST" action="cadastro.php">
-       		<h2 class="form-signin-heading">Crie uma conta:</h2>
-       		<input id="UserName" class="form-control" placeholder="Usuario" name="UserName"></input>
-       		<input type="email" id="inputEmail" class="form-control" placeholder="Email" name="inputEmail"/>
-       		<input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="" name="inputPassword"/>
-       		<input type="text" id="dataNascimento" class="form-control" placeholder="AAAA/MM/DD"  name="dataNascimento"/><br/>
-       		<button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>				
-       		<br/>
+			<form class="form-signin" method="POST" action="">
+				<h2 class="form-signin-heading">Crie uma conta:</h2>
+				<input id="cadNome" class="form-control" placeholder="Usuario" name="cadNome" required=""></input>
+				<input type="email" id="cadEmail" class="form-control" placeholder="Email" name="cadEmail"  required=""/>
+				<input type="password" id="cadPassword" class="form-control" placeholder="Senha" name="cadPassword"  required=""/>
+				<input type="date" id="cadNasc" class="form-control" placeholder="DD/MM/AAAA"  name="cadNasc"  required=""/><br/>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>				
+				<br/>
       		</form>
-    </div> <!-- /container -->
-	<footer>LhamaSoft</footer>
+			<?php
+				if(isset($_POST['cadEmail']) AND isset($_POST['cadPassword']) AND isset($_POST['cadNome']) AND isset($_POST['cadNasc']))
+				{
+					$email = $_POST['cadEmail'];
+					$login = $_POST['cadNome'];
+					$senha = MD5($_POST['cadPassword']);
+					$nascimento = $_POST['cadNasc'];
+					$nascimento = preg_replace('#(\d{2})/(\d{2})/(\d{4})#', '$3-$2-$1', $nascimento);
+						$sqlDup = "SELECT nomeUsuario, email
+								   FROM usuarios
+								   WHERE nomeUsuario = '".$login."' OR email = '".$email."' ";
+						$queryDup = mysql_query($sqlDup) or die(mysql_error());
+						$result = mysql_fetch_assoc($queryDup);
+						$dupLogin = $result['nomeUsuario'];
+						$dupEmail = $result['email'];
+						if($dupLogin == $login)
+						{
+							echo "<script language='javascript' type='text/javascript'>alert('Esse nome de usuario ja esta em uso.');window.location.href='index.xhtml';</script>";
+						}
+						else if($dupEmail == $email)
+						{
+							echo "<script language='javascript' type='text/javascript'>alert('Esse E-Mail ja esta em uso.');window.location.href='index.xhtml';</script>";
+						}
+						else
+						{
+							$sqlCad = "INSERT INTO usuarios (NomeUsuario,email,senha,Nascimento) 
+										VALUES ('$login','$email','$senha','$nascimento')";
+							$queryCad = mysql_query($sqlCad) or die(mysql_error());
+							if($queryCad)
+							{
+								echo"<script language='javascript' type='text/javascript'>alert('Usuario cadastrado com sucesso! Bem vindo ao LhamaTable');window.location.href='index.xhtml'</script>";
+							}
+						}
+				}
+			?>
+		</div> <!-- /container -->
   </body>
 </html>

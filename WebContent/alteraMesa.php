@@ -2,15 +2,22 @@
 		include("login.php");
 		loginCheck();
 		
-		$novoNome = $_POST['alteraMesa'];
-		$novaSenha = $_POST['novaSenha'];
-		$sql = "UPDATE mesa
-				SET nomeMesa = '".$novoNome."', senhaMesa = '".$novaSenha."'
-				WHERE ID = '".$_SESSION['mesaID']."' ";
-		$query = mysql_query($sql) or die (mysql_error());
-		mesaClear();
-		header("location:perfil.xhtml");
 		
+		if($_SESSION['ID'] == $_SESSION['mestreID'])
+		{
+			$novoNome = $_POST['alteraMesa'];
+			$novaSenha = $_POST['novaSenha'];
+			$sql = "UPDATE mesa
+					SET nomeMesa = '".$novoNome."', senhaMesa = '".$novaSenha."'
+					WHERE ID = '".$_SESSION['mesaID']."' ";
+			$query = mysql_query($sql) or die (mysql_error());
+			mesaClear();
+			header("location:perfil.xhtml");
+		}
+		else
+		{
+			echo "Somente o mestre pode fazer alterações na mesa";
+		}
 		
 		function mesaClear()
 		{

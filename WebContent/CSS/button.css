@@ -1,0 +1,77 @@
+.btn, .ui-state-default{
+	background-color:#565F87;
+	border-color:#353373;
+	color:white !important;
+	width:140px;
+}
+
+[role="button"] {
+    cursor: pointer;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: .1em;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+}
+ .ui-corner-all {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+ .ui-state-default {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+ .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: #565F87;
+    filter: none;
+    font-weight: bold;
+    text-shadow: none;
+}
+ .ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 1.1em;
+}
+ button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+ button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+ button, select {
+    text-transform: none;
+}
+ button {
+    overflow: visible;
+}
+ button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+html {
+    font-size: 10px;
+}
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+}

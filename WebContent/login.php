@@ -13,32 +13,6 @@
 		session_start();
 		
 		//verifica se o usuário e senha existem
-		
-		function loginDo($email, $senha)
-		{
-			$sql = "SELECT ID, NomeUsuario, email, fotoUsuario, tipoUsuario, dataCadastro
-					FROM usuarios 
-					WHERE email = '".$email."' AND senha = '".MD5($senha)."' LIMIT 1";
-			$query = mysql_query($sql) or die(mysql_error()) ;
-			$result = mysql_fetch_assoc($query);
-			//se não
-			if(empty($result))
-			{
-				echo 'Erro no Login';
-			}
-			else
-			{
-				$_SESSION['usuarioNome'] = $result['NomeUsuario'];
-				$_SESSION['ID'] = $result['ID'];
-				$_SESSION['email'] = $result['email'];
-				$_SESSION['fotoUsuario'] = $result['fotoUsuario'];
-				$_SESSION['tipoUsuario'] = $result['tipoUsuario'];
-				$timestamp = strtotime($result['dataCadastro']);
-				$userDD = date('d/m/y', $timestamp);
-				$_SESSION['dataCadastro'] = $userDD;
-				header("location:perfil.xhtml");
-			}
-		}
 			
 		function loginCheck()
 		{

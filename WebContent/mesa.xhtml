@@ -24,7 +24,6 @@
     xmlns:h="http://java.sun.com/jsf/html">
   <head>
   
-	<meta http-equiv="refresh" content="60">
 	
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
@@ -44,8 +43,9 @@
     
   
 	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
-    <title>Mesa</title>
-    
+	<?php
+		echo "<title>".$_SESSION['nomeMesa']."</title>"
+    ?>
     <link rel="stylesheet" type="text/css" href="CSS/mesa.css"></link>
     <link rel="stylesheet" type="text/css" href="CSS/button.css"></link>
     <link rel="stylesheet" type="text/css" href="CSS/textarea.css"></link>
@@ -94,8 +94,7 @@
 						<li><button type="button" data-toggle="modal" data-target="#myEditar" class="btn btn-default">Editar</button></li>
 						<li><button type="button" data-toggle="modal" data-target="#myDeletar" class="btn btn-default">Deletar</button></li>
 						<form method="POST" action="saiMesa.php">
-						<li><button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button></li>
-						<li><button type="button" data-toggle="modal" data-target="#editarFicha" class="btn btn-default">EditarFicha</button></li>
+							<li><button id="sair" name="sair" class="btn btn-default" type="submit">Sair</button></li>
 						</form>
 					</ul>
 				</div>
@@ -144,13 +143,13 @@
 								<h4 class="modal-title">Deletar</h4>
 							</div>
 							<div class="modal-body">
-								<form role="form" method="post" action="removeMesa.php">
+								<form role="form" method="post" action="">
 									<div id="deMesa">
 										<form class="form-horizontal">
 											<fieldset>
 												<div class="form-group">
-													<label class=" control-label" for="removeMesa">Senha:</label>
-													<input id="removeMesa" name="removeMesa" placeholder="" class="form-control input-md" required="" type="password"/>
+													<label class=" control-label" for="senhaRemMesa">Senha:</label>
+													<input id="senhaRemMesa" name="senhaRemMesa" placeholder="" class="form-control input-md" required="" type="password"/>
 												</div>
 												<div class="form-group">
 													<label class=" control-label" for="removeM"></label>
@@ -160,6 +159,51 @@
 										</form>
 									</div>
 								</form>
+									<?php
+										if(isset($_POST['senhaRemMesa']))
+										{
+											$nomeMesa = $_POST['senhaRemMesa'];
+											if($_SESSION['ID'] == $_SESSION['mestreID'])
+											{
+												$sql = "DELETE
+														FROM mesa
+														WHERE nomeMesa = '".$_SESSION['nomeMesa']."' ";
+												$query = mysql_query($sql) or die (mysql_error());
+												mesaClear();
+												fichaDel();
+												unset($_SESSION['nomeMesa']);
+												unset($_SESSION['mestreID']);
+												echo "<script language='javascript' type='text/javascript'>window.location.href='perfil.xhtml';</script>";
+											}
+											else
+											{
+												echo "Somente o Mestre tem permissão para deletar a mesa. Ponha-se no seu lugar =P";		
+											}
+										}
+										
+										function fichaDel()
+										{
+											$sqlFichaSel = "SELECT caminhoFicha
+															FROM ficha
+															WHERE mesaID = '".$_SESSION['mesaID']."' ";
+											$queryFichaSel = mysql_query($sqlFichaSel) or die(mysql_error());
+											$result = mysql_fetch_assoc($queryFichaSel);
+											$caminhoFichaDel = $result['caminhoFicha'];
+											unlink($caminhoFicha);
+											$sqlFichaDel = "DELETE
+															FROM ficha
+															WHERE mesaID = '".$_SESSION['mesaID']."' ";
+											$queryFichaDel = mysql_query($sqlFichaDel);
+										}
+										
+										function mesaClear()
+										{
+											$sql = "UPDATE usuarios
+													SET mesaID = 0
+													WHERE mesaID = '".$_SESSION['mesaID']."' ";
+											$query = mysql_query($sql) or die (mysql_error());	
+										}
+									?>
 							</div>
 						</div>
 					</div>
@@ -178,8 +222,7 @@
 								$nome = $row[0];
 								echo '<li><button type="button" data-toggle="modal" data-target="#editarFicha" class="btn btn-default">'.$nome.'</button></li>';
 							}
-							
-						?>
+						?>	
 					</ul>
 				</div>
 				
@@ -202,7 +245,7 @@
 															WHERE mesaID = '".$_SESSION['mesaID']."' AND nome = '".$nome."' ";
 													$query = mysql_query($sql) or die (mysql_error());
 													$result = mysql_fetch_assoc($query);
-													$_SESSION['caminhoFicha'] = $result['caminhoFicha'];
+													$_SESSION['caminhoFicha'] = $result['caminhoFicha']; 
 													$caminhoFicha = $result['caminhoFicha'];
 													echo file_get_contents("$caminhoFicha");
 												?>
@@ -226,7 +269,7 @@
 			 	<h4 class="heading">Criar Fichas</h4>
 			 	<br/>
 					<form method="POST" action="criaFicha.php">
-						<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha"/>
+						<input type="text" id="ficha" class="form-control" placeholder="Nome da ficha" name="nomeFicha" required=""/>
 						<button class="btn btn-primary btn-block" type="submit">Criar</button>
 					</form>
 				
@@ -236,9 +279,9 @@
 						<button class="btn btn-primary btn-block" type="submit">Deletar</button>
 				</form>
 				
-				<h4 class="heading">Fichas na Mesa</h4>
-				<?php
-					$sql = "SELECT nome, caminhoFicha
+				<!--<h4 class="heading">Fichas na Mesa</h4>
+						<?php
+							$sql = "SELECT nome, caminhoFicha
 							FROM ficha
 							WHERE mesaID = '".$_SESSION['mesaID']."' ";
 							$query = mysql_query($sql) or die (mysql_error());
@@ -247,8 +290,8 @@
 								$nome = $row[0];
 								echo "<p style='color:white'>".$nome."</p>";
 							}
-				?>
-			 </div>	
+						?>-->
+			 </div>
 		 
 		 
 				<div class="col-md-8 border2" id="chat">
@@ -270,8 +313,8 @@
 									$timestamp = strtotime($row[2]);
 									$horario = date('H:i', $timestamp);
 									$jogador = $result['nomeUsuario'];
-									echo "<div id='mJogador' style='color:white'>".$jogador.":  ".$mensagem."</div>";
-									echo "<div id='mHorario'>".$horario."</div></br>";
+										echo "<div id='mJogador'>".$jogador.":  ".$mensagem."</div>";
+										echo "<div id='mHorario'>".$horario."</div></br>";
 								}
 							?>
 						</div>

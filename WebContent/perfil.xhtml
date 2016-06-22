@@ -1,6 +1,12 @@
 <?php
 	include("login.php");
-			loginCheck();
+	loginCheck();
+	$slqImg = "SELECT caminhoFoto
+			   FROM usuarios
+			   WHERE ID = '".$_SESSION['ID']."'";
+	$queryImg = mysql_query($slqImg) or die(mysql_error());
+	$resultImg = mysql_fetch_assoc($queryImg);
+	$_SESSION['fotoUsuario'] = $resultImg['caminhoFoto'];
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -13,12 +19,16 @@
   	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 
+
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
+	
+	<link rel="stylesheet" type="text/css" href="CSS/button.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/mesa.css"></link>
+    <link rel="stylesheet" type="text/css" href="CSS/textarea.css"></link>
     <link href="CSS/signin.css" rel="stylesheet"/>
     <link href="CSS/text.css" rel="stylesheet"/>
     <link href="CSS/button.css" rel="stylesheet"/>
@@ -27,129 +37,290 @@
   </head>
 
   <body>
-  	<div class="container border2"> <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
-		<div class="row">
-        	<div role="complementary" class="col-md-2 border2" style="background-color:#693660;">
-	            	   <br/>
-	            	   <img src="images/avatar.png" class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260"/>
-						<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
-						
-						<form role="form" method="post" action="update.php">						             
-						        <button class="btn" data-toggle="collapse" data-target="#demo" >Editar</button>
-
-								<div id="demo" class="collapse">
-									<form class="form-horizontal">
-									<fieldset>
-									 <form >
-									<div class="form-group">
-									  <label class=" control-label" for="novoUser">Novo Usuário:</label>
-									  <input id="novoUser" name="novoUser" placeholder="" class="form-control input-md" required="" type="text"/>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="novoEmail">Novo Email:</label>
-									  <input id="novoEmail" name="novoEmail" placeholder="" class="form-control input-md" required="" type="text" />
-									  <span class="help-block">usuario@email.com</span>
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="novaSenhasenha">Nova Senha:</label>
-									    <input id="novaSenha" name="novaSenha" placeholder="" class="form-control input-md" required="" type="password" />
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="inputPassword">Antiga senha:</label>
-									    <input id="confSenha" name="inputPassword" placeholder="" class="form-control input-md" required="" type="password" />
-									</div>
-									<div class="form-group">
-									  <label class=" control-label" for="inputEmail">Antigo email:</label>
-									    <input id="email" name="inputEmail" placeholder="" class="form-control input-md" required="" type="text"/>
-									</div>
-									<div class="form-group">
-									  <label class="control-label" for="editar"></label>
-									    <input id="editar" name="editar" class="btn btn-default" value="Concluir" type="submit">
-									</div>
-									</form>
-									</fieldset>
-									</form>
-								</div>
-						</form>
-						
-						<form role="form" method="post" action="remove.php">
-						<button class="btn" data-toggle="collapse" data-target="#apConta" >Apagar Conta</button>
-
-								<div id="apConta" class="collapse heading">
-									<form class="form-horizontal">
-									<fieldset>
-									<div class="form-group">
-									  <label class=" control-label" for="inputEmail">Email:</label>  
-									  <input id="email" name="inputEmail" placeholder="" class="form-control input-md" required="" type="email"/>
-									  
+  	
+        	<div id="infoUsuario" class="col-md-2" style="background-color:#693660;">
+			   <br/>
+			   <?php
+					echo '<img src='.$_SESSION["fotoUsuario"].' class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260" alt="Faça upload da sua foto no menu abaixo"/>'
+				?>
+				<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
+				
+				<div class="dropdown" >
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">CONTA<span class="caret"></span></button>
+						<ul class="dropdown-menu" style="background-color:#693660">
+							<li><button type="button" data-toggle="modal" data-target="#editaConta" class="btn btn-default">Editar</button></li>
+							<li><button type="button" data-toggle="modal" data-target="#apagaConta" class="btn btn-default">Deletar</button></li>
+							<li><button type="button" data-toggle="modal" data-target="#fotoUpload" class="btn btn-default">Alterar Foto</button></li>
+							<form method="POST" action="logout.php">
+								<li><button id="logout" name="logout" class="btn btn-default" type="submit">LogOut</button></li>	
+							</form>
+						</ul>
+				</div>
+				
+				<div id="editaConta" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Editar Conta</h4>
+							</div>
+							<div class="modal-body">
+								<form role="form" method="post" action="">
+									<div id="edConta">
+										<form class="form-horizontal">
+											<fieldset>
+													<div class="form-group">
+													  <label class=" control-label" for="novoUser">Novo Usuário:</label>
+													  <input id="novoUser" name="novoUser" placeholder="" class="form-control input-md" required="" type="text"/>
+													</div>
+													<div class="form-group">
+													  <label class=" control-label" for="novoEmail">Novo Email:</label>
+													  <input id="novoEmail" name="novoEmail" placeholder="" class="form-control input-md" required="" type="text" />
+													  <span class="help-block">usuario@email.com</span>
+													</div>
+													<div class="form-group">
+														<label class=" control-label" for="novaSenhasenha">Nova Senha:</label>
+														<input id="novaSenha" name="novaSenha" placeholder="" class="form-control input-md" required="" type="password" />
+													</div>
+													<div class="form-group">
+														<label class=" control-label" for="altConfSenha">Antiga senha:</label>
+														<input id="altConfSenha" name="altConfSenha" placeholder="" class="form-control input-md" required="" type="password" />
+													</div>
+													<div class="form-group">
+														<label class=" control-label" for="altConfEmail">Antigo email:</label>
+														<input id="altConfEmail" name="altConfEmail" placeholder="" class="form-control input-md" required="" type="text"/>
+													</div>
+													<div class="form-group">
+														<label class="control-label" for="editar"></label>
+														<button id="editaC" name="editaC" class="btn btn-default" type="submit">OK</button>
+													</div>
+											</fieldset>
+										</form>
 									</div>	
-									<div class="form-group">
-									  <label class=" control-label" for="inputPassword">Senha:</label>
-									    <input id="senha" name="inputPassword" placeholder="" class="form-control input-md" required="" type="password"/>
+								</form>
+								<?php
+									if(isset($_POST['novoUser']) AND isset($_POST['novoEmail']) AND isset($_POST['novaSenha']) AND isset($_POST['altConfEmail']) AND isset ($_POST['altConfSenha']))
+									{
+										$novoUser = $_POST['novoUser'];
+										$novoEmail = $_POST['novoEmail'];
+										$novaSenha = MD5($_POST['novaSenha']);
+										$senha = MD5($_POST['altConfSenha']);
+										$email = $_POST['altConfEmail'];
+										$sql = "UPDATE usuarios
+												SET email = '".$novoEmail."',  senha = '".$novaSenha."', NomeUsuario = '".$novoUser."'
+												WHERE email = '".$email."' AND senha = '".$senha."' 
+												LIMIT 1";
+										$query = mysql_query($sql) or die(mysql_error());
+										$result = mysql_affected_rows();
+										if($result == 1)
+										{
+											session_destroy();
+											echo "<script language='javascript' type='text/javascript'>window.location.href='index.xhtml';</script>";
+										}
+										else
+										{
+											echo "<script language='javascript' type='text/javascript'>alert('Suas credencias não conferem.');window.location.href='perfil.xhtml';</script>";
+										}
+									}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="apagaConta" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Remover Conta</h4>
+							</div>
+							<div class="modal-body">
+								<form role="form" method="post" action="">
+									<div id="apConta">
+										<form class="form-horizontal">
+											<fieldset>
+												<div class="form-group">
+												  <label class=" control-label" for="remConfEmail">Email:</label>  
+												  <input id="remConfEmail" name="remConfEmail" placeholder="" class="form-control input-md" required="" type="email"/>
+												  
+												</div>	
+												<div class="form-group">
+												  <label class=" control-label" for="remConfSenha">Senha:</label>
+													<input id="remConfSenha" name="remConfSenha" placeholder="" class="form-control input-md" required="" type="password"/>
+												</div>
+												<div class="form-group">
+												  <label class=" control-label" for="apagar"></label>
+													<input id="apagar" name="apagar" class="btn btn-default" type="submit" value="Excluir">
+												</div>
+											</fieldset>
+										</form>
 									</div>
+								</form>
+									<?php 
+										//verifica se o usuário e senha existem
+										if(isset($_POST['remConfEmail']) AND isset($_POST['remConfSenha']))
+										{
+											$email = $_POST['remConfEmail'];
+											$senha = MD5($_POST['remConfSenha']);
+											$sqlMesaSel = "SELECT ID, nomeMesa
+														FROM mesa
+														WHERE mestreID = '".$_SESSION['ID']."' ";
+											$queryMesaSel = mysql_query($sqlMesaSel) or die(mysql_error());
+											while($rowMesaSel = mysql_fetch_row($queryMesaSel))
+											{
+												$mesaID = $rowMesaSel[0];
+												$nomeMesa = $rowMesaSel[1];								
+												//seleciona fichas da mesa em que é mestre
+												$sqlFichaSel = "SELECT nome
+																FROM ficha
+																WHERE mesaID = '".$mesaID."' ";
+												$queryFichaSel = mysql_query($sqlFichaSel) or die(mysql_error());
+												while($rowFichaSel = mysql_fetch_row($queryFichaSel))
+												{
+													//apaga as fichas das mesas
+													$nomeFicha = $rowFichaSel[0];
+													$caminhoFicha = "fichas/". $nomeMesa. "_" .$nomeFicha . ".txt";
+													unlink($caminhoFicha);
+												}
+												//apaga as fichas do DB
+												$sqlFichaDel = "DELETE
+																FROM ficha
+																WHERE mesaID = '".$mesaID."' ";
+												$queryFichaDel = mysql_query($sqlFichaDel) or die(mysql_error());
+											}
+											
+											//Apaga a mesa do DB
+											$sqlMesaDel = "DELETE
+															FROM mesa
+															WHERE mestreID = '".$_SESSION['ID']."' ";
+											$queryMesaDel = mysql_query($sqlMesaDel) or die(mysql_error());
+											
+											$sql = "INSERT INTO removidos (dataCadastro, email, ID, Nascimento, senha, NomeUsuario, tipoUsuario)
+													SELECT dataCadastro, email, ID, Nascimento, senha, NomeUsuario, tipoUsuario
+													FROM usuarios
+													WHERE email = '".$email."' AND senha = '".$senha."' AND ID = '".$_SESSION['ID']."' LIMIT 1";
+											$sql2 ="DELETE
+													FROM usuarios
+													WHERE email = '".$email."' AND senha = '".$senha."' AND ID = '".$_SESSION['ID']."' LIMIT 1";		
+											$query = mysql_query($sql) or die(mysql_error()) ;
+											$result = mysql_affected_rows();
+											$query2 = mysql_query($sql2) or die(mysql_error()) ;
+											if($result >= 1)
+											{
+												session_destroy();
+												echo "<script language='javascript' type='text/javascript'>window.location.href='index.xhtml';</script>";
+												
+											}
+											else if($result < 1)
+											{
+												echo "<script language='javascript' type='text/javascript'>alert('Houve um erro na exclusao da conta.');</script>";
+											}
+										}
+									?>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				</form>
+				<br/>
+				<p class="heading">Nome de Usuário: <?php echo $_SESSION['usuarioNome']; ?></p>
+				<p class="heading">Usuário desde: <?php echo $_SESSION['dataCadastro'];?> </p>
+				<p class="heading">ID: <?php echo $_SESSION['ID']; ?></p>	
+				<p class="heading">E-Mail: <?php echo $_SESSION['email']; ?></p>
+				<p class="heading">Tipo de Usuario: <?php 
+														
+														if($_SESSION['tipoUsuario'] == 0)
+														{
+															echo 'Cobre';
+														}
+														if($_SESSION['tipoUsuario'] == 1)
+														{
+															echo 'Administrador';
+														}
+													?>
+				<div id="fotoUpload" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Editar</h4>
+							</div>
+							<div class="modal-body">
+								<form action="upload.php" method="post" enctype="multipart/form-data">
 									<div class="form-group">
-									  <label class=" control-label" for="apagar"></label>
-									    <input id="apagar" name="apagar" class="btn btn-default" type="submit" value="Excluir">
+										Select image to upload:
+										<input type="file" name="perfilImagem" id="perfilImagem">
 									</div>
-									
-									</fieldset>
-									</form>
-								</div>
-					   
-						</form>
-						<br/>
-						<p class="heading">Nome de Usuário: <?php echo $_SESSION['usuarioNome']; ?></p>
-						<p class="heading">Usuário desde: <?php echo $_SESSION['dataCadastro'];?> </p>
-						<p class="heading">ID: <?php echo $_SESSION['ID']; ?></p>	
-						<p class="heading">E-Mail: <?php echo $_SESSION['email']; ?></p>
-						<p class="heading">Tipo de Usuario: <?php 
-																
-																if($_SESSION['tipoUsuario'] == 0)
-																{
-																	echo 'Cobre';
-																}
-																if($_SESSION['tipoUsuario'] == 1)
-																{
-																	echo 'Administrador';
-																}
-															?>
-						<form method="POST" action="logout.php">
-						<button id="logout" name="logout" class="btn btn-default" type="submit">Sair</button>
-						</form>
-						
+										<input type="submit" class="btn btn-default" value="Confirmar" name="submit">
+								</form>		
+							</div>
+						</div>
+					</div>
+				</div>			
         	</div>
 		
-   			<div class="col-md-8">
-			  				  	
+   			<div class="col-md-5 " role="complementary" id="mesas" style="background-color:#693660;">				  	
 			  	<div class="col-md-8" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
-					<form role="form" method="post" action="criaMesa.php">						             
-						    <h3 class="heading">Minhas Mesas</h3>
-						    <br/>
-						     <button class="btn" data-toggle="collapse" data-target="#crMesa" >Criar Mesa</button>
-
-								<div id="crMesa" class="collapse heading">
-								
-									<form class="form-horizontal" >
-									
+					<form role="form" method="post" action="">						             
+						<h3 class="heading">Minhas Mesas</h3>
+						<br/>
+						 <button class="btn" data-toggle="collapse" data-target="#crMesa" >Criar Mesa</button>
+							<div id="crMesa" class="collapse heading">
+								<form class="form-horizontal" >
 									<div class="form-group">
-									  <label class=" control-label" for="nomeMesa">Nome:</label>  
-									  <input id="nomeMesa" name="nomeMesa" placeholder="" class="form-control input-md" required="" type="text"/>
+									  <label class=" control-label" for="criaMesaNome">Nome:</label>  
+									  <input id="criaMesaNome" name="criaMesaNome" placeholder="" class="form-control input-md" required="" type="text"/>
 									</div>
-									
 									<div class="form-group">
-									  <label class=" control-label" for="senhaMesa">Senha:</label>
-									    <input id="senhaMesa" name="senhaMesa" placeholder="" class="form-control input-md" required="" type="password"/>
+									  <label class=" control-label" for="criaMesaSenha">Senha:</label>
+										<input id="criaMesaSenha" name="criaMesaSenha" placeholder="" class="form-control input-md" required="" type="password"/>
 									</div>
-									
 									<div class="form-group">
 									  <label class=" control-label"></label>
-									    <input id="criar" name="criar" class="btn btn-default" type="submit" value="Criar Mesa"/>
+										<input id="criar" name="criar" class="btn btn-default" type="submit" value="Confirmar"/>
 									</div>	
-									
-									</form>
-								</div>	
-				 
-						</form>
+								</form>
+							</div>	
+					</form>
+					<?php
+						if(isset($_POST['criaMesaNome']) AND isset($_POST['criaMesaSenha']))
+						{
+							$nomeMesa = $_POST['criaMesaNome'];
+							$senhaMesa = $_POST['criaMesaSenha'];
+							
+							//verifica se existem 2 mesas com o mesmo nome
+							$sql1 = "SELECT nomeMesa
+									FROM mesa
+									WHERE nomeMesa = '".$nomeMesa."'"; 
+							$query1 = mysql_query($sql1) or die (mysql_error());
+							$resultD = mysql_fetch_assoc($query1);
+							if($resultD)
+							{
+								echo "<script language='javascript' type='text/javascript'>alert('Ja existe uma mesa com esse nome.');</script>";
+							}
+							else
+							{
+								//se não cria mesa;
+								$sql2 = "INSERT INTO mesa (mestreID,nomeMesa,senhaMesa) 
+										VALUES ('".$_SESSION['ID']."','".$nomeMesa."','".$senhaMesa."')"; 
+								$query2 = mysql_query($sql2) or die(mysql_error()) ;
+
+								$sql3 = "SELECT ID, senhaMesa
+										FROM mesa
+										WHERE nomeMesa = '".$nomeMesa."' ";
+								$query3 = mysql_query($sql3) or die(mysql_error()) ;
+								$resultID = mysql_fetch_assoc($query3);
+								$idMesa = $resultID['ID'];
+								$senha = $resultID['senhaMesa'];
+								echo "<script language='javascript' type='text/javascript'>alert('Sua mesa ja esta pronta.\n');</script>";
+							}
+						}
+					?>
 			  	</div>
 			  	
 			  	<div class="col-md-8" id="mesasJog" ><!-- Mesas onde o usuario já jogou -->
@@ -211,10 +382,40 @@
 						?>
 				 	</form>
 			  	</div>
-				
-				
-			 </div>
-   		</div>						
- </div>	
+			</div>
+			
+			<div class="col-md-5" role="complementary" id="privado" style="background-color:white;">
+				<h3 class='heading'  style='color:black'>Mensageiro</h3>
+				<div id="pvdEntrada">
+					<?php 
+						$sql = "SELECT mensagem, jogador, horario
+						FROM privadoMensagens
+						WHERE destID = '".$_SESSION['ID']."'";
+						$query = mysql_query($sql) or die(mysql_error()) ;
+						while($row = mysql_fetch_row($query))
+						{
+							$sql2 = "SELECT nomeUsuario
+								FROM usuarios
+								WHERE ID = '".$row[1]."'";
+							$query2 = mysql_query($sql2) or die(mysql_error()) ;
+							$result = mysql_fetch_assoc($query2);
+							$mensagem = $row[0];
+							$timestamp = strtotime($row[2]);
+							$horario = date('d/m', $timestamp);
+							$jogador = $result['nomeUsuario'];
+								echo "<div id='mJogador' style='color:black'>".$jogador.":  ".$mensagem."</div>";
+								echo "<div id='mHorario' style='color:black'>".$horario."</div></br>";
+						}
+					?>
+				</div>	
+				<div id="pvdTexto">
+					<form method="POST" action="enviaPrivado.php">
+						<textarea class="col-md-10" rows="1" cols="90" id="pvdMensagem" name="pvdMensagem"  style="width:275px; height:40px" required=""> </textarea>
+						<input class="col-md-10" rows="1" cols="90" id="pvdID" name="pvdID"  style="width:50px; height:40px" required="" placeholder="ID"/>
+						<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:100px; height:40px">Enviar</button>
+					</form>
+				</div>
+			</div>
+	
   </body>
 </html>

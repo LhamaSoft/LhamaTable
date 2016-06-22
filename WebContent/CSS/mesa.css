@@ -1,0 +1,94 @@
+
+#mensagens
+{
+	width: 715px;
+	height:550px;
+	margin: auto;
+	float: center;
+	background-image: url('../images/paper_texture324.png');
+	background-size: 805px 720px;
+	background-position: center;
+	overflow:auto;
+	max-height:550px;
+}
+
+#mInner
+{
+	padding-top: 18px;
+	padding-left: 10px;
+	padding-right: 17px;
+	padding-bottom: 18px;
+}
+
+#mJogador
+{
+	font-family: 'Fantasy';
+	float: left;	
+}
+
+#mHorario
+{
+	float: right;
+	font-family: 'Fantasy';
+}
+
+#lateral_dir
+{
+	height: 610px;
+	overflow:auto;
+	width: 191px;
+	float: right;
+}
+
+#lateral_esq
+{
+	height: 610px;
+	overflow:auto;
+}
+
+#privado
+{
+	height: 536px;
+	overflow:auto;
+}
+
+#mesas
+{
+	height: 536px;
+	overflow:auto;
+}
+#pvdTexto
+{
+	float: bottom;
+}
+
+#dados
+{
+	background-color:rgba(0,0,0,0);
+	padding-right:30%;
+}
+
+#dados li
+{
+	float:left;
+}
+
+#map
+{
+	margin-right: 50px;	
+}
+
+#infoUsuario
+{
+	float: left;
+
+}
+
+
+@font-face 
+{ 
+	font-family: 'Fantasy'; 
+	src: url('../fonts/Atlas of the Magi.ttf'); 
+	src: url('Atlas of the Magi.ttf')	 format('truetype');
+	
+} 
