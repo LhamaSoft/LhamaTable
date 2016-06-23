@@ -36,23 +36,23 @@
     <title>Perfil</title>
   </head>
 
-  <body>
+  <body style="background-color:#211733;padding-top:40px;padding-left:5px;padding-right:5px;"">
   	
-        	<div id="infoUsuario" class="col-md-2" style="background-color:#693660;">
+        	<div id="infoUsuario" class="col-md-2">
 			   <br/>
 			   <?php
-					echo '<img src='.$_SESSION["fotoUsuario"].' class="img-responsive img-thumbnail" style="margin-bottom:10px" width="240" height="260" alt="Faça upload da sua foto no menu abaixo"/>'
+					echo '<img src='.$_SESSION["fotoUsuario"].' class="img-responsive img-thumbnail" style="margin-bottom:10px;width:240px;height:260px;" alt="Faça upload da sua foto no menu abaixo"/>'
 				?>
 				<!-- <a href="editar.xhtml"><button class="btn btn-sm btn-primary btn-block" type="button">Editar Perfil</button></a> -->
 				
 				<div class="dropdown" >
 					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">CONTA<span class="caret"></span></button>
-						<ul class="dropdown-menu" style="background-color:#693660">
-							<li><button type="button" data-toggle="modal" data-target="#editaConta" class="btn btn-default">Editar</button></li>
-							<li><button type="button" data-toggle="modal" data-target="#apagaConta" class="btn btn-default">Deletar</button></li>
-							<li><button type="button" data-toggle="modal" data-target="#fotoUpload" class="btn btn-default">Alterar Foto</button></li>
+						<ul class="dropdown-menu" style="background-color:rgba(0,0,0,0)">
+							<button type="button" data-toggle="modal" data-target="#editaConta" class="btn btn-default">Editar</button>
+							<button type="button" data-toggle="modal" data-target="#apagaConta" class="btn btn-default">Deletar</button>
+							<button type="button" data-toggle="modal" data-target="#fotoUpload" class="btn btn-default">Alterar Foto</button>
 							<form method="POST" action="logout.php">
-								<li><button id="logout" name="logout" class="btn btn-default" type="submit">LogOut</button></li>	
+								<button id="logout" name="logout" class="btn btn-default" type="submit">LogOut</button>	
 							</form>
 						</ul>
 				</div>
@@ -204,10 +204,13 @@
 													WHERE email = '".$email."' AND senha = '".$senha."' AND ID = '".$_SESSION['ID']."' LIMIT 1";
 											$sql2 ="DELETE
 													FROM usuarios
-													WHERE email = '".$email."' AND senha = '".$senha."' AND ID = '".$_SESSION['ID']."' LIMIT 1";		
+													WHERE email = '".$email."' AND senha = '".$senha."' AND ID = '".$_SESSION['ID']."' LIMIT 1";													
 											$query = mysql_query($sql) or die(mysql_error()) ;
 											$result = mysql_affected_rows();
 											$query2 = mysql_query($sql2) or die(mysql_error()) ;
+											$caminhoLog = "logs/usuarios.log";
+											$usuarioLog = "\n REMOÇÃO - EMAIL: ".$email." ID - ".$_SESSION['ID']." \n ";
+											file_put_contents($caminhoLog, $usuarioLog, FILE_APPEND);	
 											if($result >= 1)
 											{
 												session_destroy();
@@ -263,9 +266,8 @@
 					</div>
 				</div>			
         	</div>
-		
-   			<div class="col-md-5 " role="complementary" id="mesas" style="background-color:#693660;">				  	
-			  	<div class="col-md-8" id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
+   			<div class="col-md-4 " role="complementary" id="mesas" style="background-color:#693660;">				  	
+			  	<div id="mesasProp"><!-- mesas próprias, das quais o usuario é mestre -->
 					<form role="form" method="post" action="">						             
 						<h3 class="heading">Minhas Mesas</h3>
 						<br/>
@@ -323,7 +325,7 @@
 					?>
 			  	</div>
 			  	
-			  	<div class="col-md-8" id="mesasJog" ><!-- Mesas onde o usuario já jogou -->
+			  	<div id="mesasJog" ><!-- Mesas onde o usuario já jogou -->
 			  		<form role="form" method="post" action="buscaMesa.php">						             
 						    <h3 class="heading">Entre em uma Mesa</h3>
 						    <br/>
@@ -352,7 +354,7 @@
 				 		</form>
 			  	</div>
 			    
-				<div class="col-md-8" id="mesaMest">
+				<div id="mesaMest">
 			  		<form role="form" method="post" action="buscaMesa.php">						             
 						    <h3 class="heading">Mesas das quais você é mestre</h3>
 							<?php
@@ -371,7 +373,7 @@
 				 		</form>
 			  	</div>
 				
-				<div class="col-md-8" id="mesaUlt">
+				<div id="mesaUlt">
 			  		<form role="form" method="post" action="buscaMesa.php">
 						<?php
 							if(isset($_SESSION['nomeMesa']))
@@ -384,8 +386,8 @@
 			  	</div>
 			</div>
 			
-			<div class="col-md-5" role="complementary" id="privado" style="background-color:white;">
-				<h3 class='heading'  style='color:black'>Mensageiro</h3>
+			<div id="privado" style="background-color:#693660;">
+				<h3 class='heading'  style='color:black;font-family:"Fantasy";padding-left:10px;'>Mensageiro</h3>
 				<div id="pvdEntrada">
 					<?php 
 						$sql = "SELECT mensagem, jogador, horario
@@ -403,14 +405,14 @@
 							$timestamp = strtotime($row[2]);
 							$horario = date('d/m', $timestamp);
 							$jogador = $result['nomeUsuario'];
-								echo "<div id='mJogador' style='color:black'>".$jogador.":  ".$mensagem."</div>";
-								echo "<div id='mHorario' style='color:black'>".$horario."</div></br>";
+							echo "<div id='pvdMJogador' style='color:black'>".$jogador."-  ".$mensagem."</div>";
+							echo "<div id='pvdMHorario' style='color:black'>".$horario."</div>";
 						}
 					?>
 				</div>	
 				<div id="pvdTexto">
 					<form method="POST" action="enviaPrivado.php">
-						<textarea class="col-md-10" rows="1" cols="90" id="pvdMensagem" name="pvdMensagem"  style="width:275px; height:40px" required=""> </textarea>
+						<textarea class="col-md-10" rows="1" cols="90" id="pvdMensagem" name="pvdMensagem"  style="width:375px; height:40px" required=""> </textarea>
 						<input class="col-md-10" rows="1" cols="90" id="pvdID" name="pvdID"  style="width:50px; height:40px" required="" placeholder="ID"/>
 						<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:100px; height:40px">Enviar</button>
 					</form>

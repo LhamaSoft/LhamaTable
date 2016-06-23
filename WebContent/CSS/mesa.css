@@ -1,15 +1,24 @@
+#chat
+{
+	margin-right: 10px;
+	background-color:#693660;
+	height: 610px;
+	box-shadow: 0px 1px 2px #888888;
+	padding-top: 10px;
+	padding-right: 5px;
+}
 
 #mensagens
 {
-	width: 715px;
+	border-radius: 5px;
+	width: 763px;
 	height:550px;
-	margin: auto;
-	float: center;
 	background-image: url('../images/paper_texture324.png');
-	background-size: 805px 720px;
+	background-size: 897px 720px;
 	background-position: center;
 	overflow:auto;
 	max-height:550px;
+	background-color:#693660;
 }
 
 #mInner
@@ -28,7 +37,7 @@
 
 #mHorario
 {
-	float: right;
+	text-align: right;	
 	font-family: 'Fantasy';
 }
 
@@ -37,6 +46,20 @@
 	height: 610px;
 	overflow:auto;
 	width: 191px;
+	background-color:#693660;
+	box-shadow: 0px 1px 2px #888888
+}
+
+#divDados
+{
+	background-color:#693660;
+	margin-right: 10px;
+	height: 610px;
+	box-shadow: 0px 1px 2px #888888
+}
+
+#listaDados
+{
 	float: right;
 }
 
@@ -44,44 +67,59 @@
 {
 	height: 610px;
 	overflow:auto;
+	background-color:#693660;
+	margin-right: 10px;
+	box-shadow: 0px 1px 2px #888888
 }
 
 #privado
 {
 	height: 536px;
 	overflow:auto;
+	box-shadow: 0px 1px 2px #888888
 }
 
 #mesas
 {
 	height: 536px;
 	overflow:auto;
+	margin-right: 10px;
+	box-shadow: 0px 1px 2px #888888
 }
 #pvdTexto
 {
 	float: bottom;
+	padding-left: 10px;
 }
 
-#dados
+#pvdMJogador
+{
+	font-family: 'Fantasy';
+	float: left;
+	padding-left: 10px;
+}
+
+#pvdMHorario
+{
+	text-align: right;
+	font-family: 'Fantasy';
+	padding-right: 5px;
+}
+
+
+#pngIcon
 {
 	background-color:rgba(0,0,0,0);
-	padding-right:30%;
-}
-
-#dados li
-{
-	float:left;
-}
-
-#map
-{
-	margin-right: 50px;	
+	border-color:rgba(0,0,0,0);
 }
 
 #infoUsuario
 {
 	float: left;
-
+	height: 536px;
+	background-color:#693660;
+	margin-right: 10px;
+	box-shadow: 0px 1px 2px #888888
 }
 
 

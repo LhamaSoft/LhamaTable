@@ -1,7 +1,7 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #553756;
+  background-color: #211733;
 }
 
 /*right alinha a direita as tags selecionadas*/
@@ -57,7 +57,6 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-	background-color:hsla(0,0%,0%,0.5);
 }
 
 li {
@@ -69,5 +68,16 @@ li {
     text-decoration: none;
 }
 
-.container{
+.navbar-default
+{
+	border-color:rgba(0,0,0,0);
+	box-shadow: 2px 2px 0px hsla(0,0%,0%,0.3);
+}
+
+#formCad
+{
+	background-color:hsla(0,0%,0%,0.5);
+	margin-right:10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 0px hsla(0,0%,0%,0.3);
 }

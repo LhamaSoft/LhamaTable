@@ -39,7 +39,7 @@
 	
 	<script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
 
-	
+	<script src="https://code.jquery.com/jquery-3.0.0.js" type="text/javascript"></script>
     
   
 	<link rel="shortcut icon" href="image/lhamaFav.ico"/>
@@ -56,12 +56,21 @@
 		function autoRefresh_div()
 		{
 			$("#mensagens").load('mesa.xhtml' + ' #mensagens');// a function which will load data from other file after x seconds
+			$(function() {
+				var wtf    = $('#mensagens');
+				var height = wtf[0].scrollHeight;
+				wtf.scrollTop(height);
+			}); 	
 		}
- 
-		setInterval('autoRefresh_div()', 3000); // refresh div after 5 secs
 		
+		setInterval('autoRefresh_div()', 3000); // refresh div after 5 secs	
 		
-    </script>
+		$(function() {
+				var wtf    = $('#mensagens');
+				var height = wtf[0].scrollHeight;
+				wtf.scrollTop(height);
+			});
+	</script>
 	
 	<script type="text/javascript">
 	  tinymce.init({
@@ -81,10 +90,8 @@
     
   </head>
 
-<body style="background-color:#211733">
-  	<div class="container border2" > <!-- O CSS "container" ta influenciando aqui, deixando a parte de tras transparente igual na mainpage -->
-		<div class="row">        	
-			<div class="col-md-2 border2" id="lateral_esq">
+<body style="background-color:#211733;padding-top:40px;padding-left:5px;">       	
+			<div class="col-md-2" id="lateral_esq">
 				<h4 class="heading"><?php echo $_SESSION['nomeMesa']; ?></h4>
 				<p style="color:#ffffff">ID: <?php echo $_SESSION['mesaID']; ?></p>
 				<p style="color:#ffffff">Mestre: <?php echo $_SESSION['mestreNome']; ?></p>
@@ -294,7 +301,7 @@
 			 </div>
 		 
 		 
-				<div class="col-md-8 border2" id="chat">
+			<div class="col-md-7" id="chat">
 					<div id="mensagens" >
 						<div id="mInner">
 							<?php 
@@ -313,8 +320,8 @@
 									$timestamp = strtotime($row[2]);
 									$horario = date('H:i', $timestamp);
 									$jogador = $result['nomeUsuario'];
-										echo "<div id='mJogador'>".$jogador.":  ".$mensagem."</div>";
-										echo "<div id='mHorario'>".$horario."</div></br>";
+										echo "<div id='mJogador' style='color:black'>".$jogador.":  ".$mensagem."</div>";
+										echo "<div id='mHorario' style='color:black'>".$horario."</div>";
 								}
 							?>
 						</div>
@@ -322,43 +329,44 @@
 					
 					<div id="caixa">
 						<form method="POST" action="enviaMensagem.php">
-							<textarea class="col-md-10" rows="1" cols="90" id="mensagem" name="mensagem"  style="width:556px; height:40px"> </textarea>
-							<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:160px; height:40px">Enviar</button>
+							<textarea class="col-md-10" rows="1" cols="90" id="mensagem" name="mensagem"  style="width:683px; height:40px"> </textarea>
+							<button id="send" name="send" class="btn col-md-2" value="Enviar" type="submit" style="width:80px; height:40px">Enviar</button>
 						</form>
 					</div>
-				</div>
-
-			<div class="col-md-3 border2" id="lateral_dir">
-					<h4 class="heading">Jogadores</h4>
-						<?php 
-							$sql = "SELECT nomeUsuario
-							FROM usuarios
-							WHERE mesaID = '".$_SESSION['mesaID']."'";
-						$query = mysql_query($sql) or die(mysql_error()) ;
-						while($row = mysql_fetch_row($query))
-						{
-							$nome = $row[0];
-							echo "<p style='color:white'>".$nome."</p>";
-						}
-						?>
- 			</div>
-		</div>	
-		
-			<div class="col-md-10">
-				<ul id="dados" >
+						
+				
+					
+			
+			</div>
+			
+			<div id="divDados" class="col-md-1">
+				<ul id="listaDados">
+					<ul><button id="pngIcon" type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" style="widht:70px; height:70px"/></button></ul>
 					<form method="POST" action="enviaMensagem.php">
-						<div style="width:1050px">
-							<li id="map"><button type="button" data-toggle="modal" data-target="#myMap"><img src="images/Map_Icon.png" alt="" style="widht:50px; height:50px"/></button></li>
-							<li><button type="submit" name="d4"><img src="images/d4.png" alt="" style="height:50px"/></button></li>
-							<li><button type="submit" name="d6"><img src="images/d6.png" alt="" style="height:50px"/></button></li>
-							<<li><button type="submit" name="d8"><img src="images/d8.png" alt="" style="height:50px" /></button></li>
-							<li><button type="submit" name="d10"><img src="images/d10.png" alt="" style="height:50px"/></button></li>
-							<li><button type="submit" name="d12"><img src="images/d12.png" alt="" style="height:50px"/></button></li>
-							<li><button type="submit" name="d20"><img src="images/d20_icon.png" alt="" style="height:50px"/></button></li>
-							<li><button type="submit" name="d100"><img src="images/d_porcento.png" alt="" style="widht:50px; height:50px"/></button></li>
-						</div>	
+							<ul><button id="pngIcon" type="submit" name="d4"><img src="images/d4.png" alt="" style="height:70px"/></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d6"><img src="images/d6.png" alt="" style="height:70px"/></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d8"><img src="images/d8.png" alt="" style="height:70px" /></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d10"><img src="images/d10.png" alt="" style="height:70px"/></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d12"><img src="images/d12.png" alt="" style="height:70px"/></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d20"><img src="images/d20_icon.png" alt="" style="height:70px"/></button></ul>
+							<ul><button id="pngIcon" type="submit" name="d100"><img src="images/d_porcento.png" alt="" style="widht:75px; height:70px"/></button></ul>
 					</form>
 				</ul>
+			</div>
+			
+			<div class="col-md-3" id="lateral_dir">
+			<h4 class="heading">Jogadores</h4>
+				<?php 
+					$sql = "SELECT nomeUsuario
+					FROM usuarios
+					WHERE mesaID = '".$_SESSION['mesaID']."'";
+				$query = mysql_query($sql) or die(mysql_error()) ;
+				while($row = mysql_fetch_row($query))
+				{
+					$nome = $row[0];
+					echo "<p style='color:white'>".$nome."</p>";
+				}
+				?>
 			</div>
 		
 		
@@ -373,17 +381,12 @@
 					<div class="modal-body">
 						<img src="images/mapa.png" style = "width: 550px"></img>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
 				</div>
 			</div>
-		</div>	
-	</div>		 
+		</div>		 
 
 
    		
 		
-	</div>
   </body>
 </html>

@@ -7,7 +7,7 @@ p{
 }
 
 .madeira body{
-	background-image: url("images/madeira.jpg");
+	background-image: url("../images/madeira.jpg");
 }
 .image{
 	float:left;	
